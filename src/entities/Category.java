@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -22,11 +23,14 @@ public class Category extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name="name")
     private String name;
 
+    @Column(name="description")
     private String description;
 
-    @OneToMany(mappedBy = "categoryId", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
+    @JoinColumn(name="products")
     private Collection<Product> products = new ArrayList();
 
     public Collection<Product> getProducts() {
@@ -55,7 +59,8 @@ public class Category extends BaseEntity implements Serializable {
 
     public void addProduct(Product product) {
         this.products.add(product);
-        product.setCategoryId(this.getId());
+        product.setCategory(this);
+        product.setCategoryId(product.getCategory().getId());
     }
 
 }

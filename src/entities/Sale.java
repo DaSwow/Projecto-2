@@ -6,8 +6,21 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -18,13 +31,36 @@ public class Sale extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     private Float discount;
 
     private Float total;
 
+    @ManyToOne
+    @JoinColumn(name="customer")
+    private Customer customer;
+    
     private Integer customerId;
+
+    
+    
+    
+
+    
+    
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "saleItems")
+    private Collection<SaleItem> saleItems = new ArrayList();
+
+    public Collection<SaleItem> getSaleItems() {
+        return saleItems;
+    }
+
+    public void setSaleItems(Collection<SaleItem> saleItems) {
+        this.saleItems = saleItems;
+    }
 
     public Integer getCustomerId() {
         return customerId;
@@ -57,5 +93,15 @@ public class Sale extends BaseEntity implements Serializable {
     public void setDiscount(Float discount) {
         this.discount = discount;
     }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+    
+    
 
 }

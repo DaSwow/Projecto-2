@@ -1,14 +1,9 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,18 +20,19 @@ public class Product extends BaseEntity implements Serializable {
 
     private Integer stock;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "productId")
-    @OneToMany(mappedBy="productId")
-    private Integer id=super.getId();
-    
-    @ManyToOne
-    @JoinColumn(name = "providerId")
-    private Integer providerId;
+
 
     @ManyToOne
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "provider")
+    private Provider provider;
+
+    private Integer providerId;
+
+     @ManyToOne
+    @JoinColumn(name = "category")
+    private Category category;
+    
+
     private Integer categoryId;
 
     public Integer getStock() {
@@ -54,7 +50,7 @@ public class Product extends BaseEntity implements Serializable {
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
-    
+
     public Integer getProviderId() {
         return providerId;
     }
@@ -78,5 +74,23 @@ public class Product extends BaseEntity implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+    
+    
 
 }

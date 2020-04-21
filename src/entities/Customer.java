@@ -6,7 +6,12 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,7 +30,17 @@ public class Customer extends BaseEntity implements Serializable {
 
     private String phone;
 
-    
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "sales")
+    private Collection<Sale> sales = new ArrayList();
+
+    public Collection<Sale> getSaleItems() {
+        return sales;
+    }
+
+    public void setSaleItems(Collection<Sale> sales) {
+        this.sales = sales;
+    }
     
     public String getPhone() {
         return phone;

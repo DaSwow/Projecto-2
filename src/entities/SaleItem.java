@@ -6,12 +6,10 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 /**
  *
@@ -21,10 +19,14 @@ import javax.persistence.ManyToOne;
 public class SaleItem extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-  
     
-     @ManyToOne
+    
+    @ManyToOne
+    @JoinColumn(name="product")
+    private Product product;
+    
+     
+   
     private Integer productId;
 
     private Integer saleId;
@@ -35,6 +37,20 @@ public class SaleItem extends BaseEntity implements Serializable {
 
     private Float total;
 
+    @ManyToOne
+    @JoinColumn(name="sale")
+    private Sale sale;
+
+    public Sale getSale() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale = sale;
+    }
+
+    
+    
     public Float getTotal() {
         return total;
     }
@@ -73,6 +89,14 @@ public class SaleItem extends BaseEntity implements Serializable {
 
     public void setProductId(Integer productId) {
         this.productId = productId;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
 }

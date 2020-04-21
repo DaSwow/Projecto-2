@@ -30,7 +30,8 @@ public class Provider extends BaseEntity implements Serializable {
 
     private String website;
 
-    @OneToMany(mappedBy = "providerId", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.PERSIST)
+    @JoinColumn(name="products")
     private Collection<Product> products=new ArrayList();
 
     public Collection<Product> getProducts() {
