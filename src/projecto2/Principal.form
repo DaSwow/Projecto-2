@@ -48,12 +48,16 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="botonCategory" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="botonCategory" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
+                          <Component id="botonVenta" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <Component id="botonProduct" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="botonProvider" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="botonCustomer" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="509" max="32767" attributes="0"/>
+                  <EmptySpace pref="300" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -63,7 +67,10 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="botonCategory" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="botonCategory" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="botonVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="botonProduct" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -112,6 +119,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonCustomerActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="botonVenta">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Realizar Venta"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

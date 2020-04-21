@@ -64,6 +64,7 @@ public class Principal extends javax.swing.JFrame {
         botonProduct = new javax.swing.JButton();
         botonProvider = new javax.swing.JButton();
         botonCustomer = new javax.swing.JButton();
+        botonVenta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,6 +98,8 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        botonVenta.setText("Realizar Venta");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -105,11 +108,14 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(botonCategory)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(botonCategory)
+                        .addGap(148, 148, 148)
+                        .addComponent(botonVenta))
                     .addComponent(botonProduct)
                     .addComponent(botonProvider)
                     .addComponent(botonCustomer))
-                .addContainerGap(509, Short.MAX_VALUE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +123,9 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonCategory)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonCategory)
+                    .addComponent(botonVenta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonProduct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,6 +211,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton botonCustomer;
     private javax.swing.JButton botonProduct;
     private javax.swing.JButton botonProvider;
+    private javax.swing.JButton botonVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
