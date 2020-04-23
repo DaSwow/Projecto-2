@@ -9,7 +9,7 @@ import entities.Customer;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import persistence.BaseRepository;
+import persistence.BaseRepositoryImpl;
 import persistence.Repository;
 
 /**
@@ -24,7 +24,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
         initComponents();
         Principal principal = new Principal();
         em = principal.getEntityManager();
-        repo = new BaseRepository(em, Customer.class);
+        repo = new BaseRepositoryImpl(em, Customer.class);
         poblarTabla();
     }
 
@@ -252,7 +252,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
-        BaseRepository br = new BaseRepository(em, Customer.class);
+        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Customer.class);
 
         Customer cm = new Customer();
         cm.setAddress(campoAddress.getText());
@@ -274,7 +274,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
             cm.setPhone(campoPhone.getText());
             cm.setRfc(campoRFC.getText());
 
-            BaseRepository br = new BaseRepository(em, Customer.class);
+            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Customer.class);
             br.save(cm);
 
         }
@@ -285,7 +285,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         if (!campoID.getText().equals("")) {
 
-            BaseRepository br = new BaseRepository(em, Customer.class);
+            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Customer.class);
             Customer cm = new Customer();
             cm.setName(campoName.getText());
             cm.setId(Integer.parseInt(campoID.getText()));
@@ -339,7 +339,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
 
         }
 
-        BaseRepository br = new BaseRepository(em, Customer.class);
+        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Customer.class);
         customers = br.getAll(Customer.class);
         DefaultTableModel tableModel = new DefaultTableModel();
 

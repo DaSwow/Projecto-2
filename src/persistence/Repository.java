@@ -11,7 +11,7 @@ import entities.BaseEntity;
  *
  * @author carls
  */
-public interface Repository<T extends BaseEntity> {
+public interface Repository <T extends BaseEntity> {
 
     T find(int id);
 

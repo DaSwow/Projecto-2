@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
 
 /**
  *
@@ -52,7 +51,7 @@ public abstract class BaseEntity implements Serializable {
         return true;
     }
 
-   @Override
+    @Override
     public String toString() {
         return this.getClass().getSimpleName() + "[ id=" + this.getId() + " ]";
     }

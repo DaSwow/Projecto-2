@@ -11,7 +11,7 @@ import entities.Provider;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import persistence.BaseRepository;
+import persistence.BaseRepositoryImpl;
 import persistence.Repository;
 import static projecto2.FormularioCategory.em;
 import static projecto2.FormularioProvider.em;
@@ -28,7 +28,7 @@ public class FormularioProduct extends javax.swing.JFrame {
         initComponents();
         Principal principal = new Principal();
         em = principal.getEntityManager();
-        repo = new BaseRepository(em, Product.class);
+        repo = new BaseRepositoryImpl(em, Product.class);
         poblarTabla();
     }
 
@@ -249,9 +249,9 @@ public class FormularioProduct extends javax.swing.JFrame {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
 
-        BaseRepository brpd = new BaseRepository(em, Product.class);
-        BaseRepository brcg = new BaseRepository(em, Category.class);
-        BaseRepository brpv = new BaseRepository(em, Provider.class);
+        BaseRepositoryImpl brpd = new BaseRepositoryImpl(em, Product.class);
+        BaseRepositoryImpl brcg = new BaseRepositoryImpl(em, Category.class);
+        BaseRepositoryImpl brpv = new BaseRepositoryImpl(em, Provider.class);
 
         Product pd = new Product();
         try {
@@ -281,9 +281,9 @@ public class FormularioProduct extends javax.swing.JFrame {
 
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
         if (!campoID.getText().equals("")) {
-            BaseRepository brpd = new BaseRepository(em, Product.class);
-            BaseRepository brcg = new BaseRepository(em, Category.class);
-            BaseRepository brpv = new BaseRepository(em, Provider.class);
+            BaseRepositoryImpl brpd = new BaseRepositoryImpl(em, Product.class);
+            BaseRepositoryImpl brcg = new BaseRepositoryImpl(em, Category.class);
+            BaseRepositoryImpl brpv = new BaseRepositoryImpl(em, Provider.class);
 
             Product pd = new Product();
             pd.setName(campoNombre.getText());
@@ -318,9 +318,9 @@ public class FormularioProduct extends javax.swing.JFrame {
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
          if (!campoID.getText().equals("")) {
-            BaseRepository brpd = new BaseRepository(em, Product.class);
-            BaseRepository brcg = new BaseRepository(em, Category.class);
-            BaseRepository brpv = new BaseRepository(em, Provider.class);
+            BaseRepositoryImpl brpd = new BaseRepositoryImpl(em, Product.class);
+            BaseRepositoryImpl brcg = new BaseRepositoryImpl(em, Category.class);
+            BaseRepositoryImpl brpv = new BaseRepositoryImpl(em, Provider.class);
 
             Product pd = new Product();
             pd.setName(campoNombre.getText());
@@ -399,7 +399,7 @@ public class FormularioProduct extends javax.swing.JFrame {
 
         }
 
-        BaseRepository br = new BaseRepository(em, Product.class);
+        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Product.class);
         products = br.getAll(Product.class);
         DefaultTableModel tableModel = new DefaultTableModel();
 

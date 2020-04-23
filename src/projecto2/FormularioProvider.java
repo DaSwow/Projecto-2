@@ -9,7 +9,7 @@ import entities.Provider;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import persistence.BaseRepository;
+import persistence.BaseRepositoryImpl;
 import persistence.Repository;
 
 /**
@@ -24,7 +24,7 @@ public class FormularioProvider extends javax.swing.JFrame {
         initComponents();
         Principal principal = new Principal();
         em = principal.getEntityManager();
-        repo = new BaseRepository(em, Provider.class);
+    
         poblarTabla();
     }
 
@@ -252,7 +252,7 @@ public class FormularioProvider extends javax.swing.JFrame {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
 
-        BaseRepository br = new BaseRepository(em, Provider.class);
+        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Provider.class);
 
         Provider pv = new Provider();
         pv.setAddress(campoAddress.getText());
@@ -274,7 +274,7 @@ public class FormularioProvider extends javax.swing.JFrame {
             pv.setPhone(campoPhone.getText());
             pv.setWebsite(campoWebsite.getText());
 
-            BaseRepository br = new BaseRepository(em, Provider.class);
+            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Provider.class);
             br.save(pv);
 
         }
@@ -285,7 +285,7 @@ public class FormularioProvider extends javax.swing.JFrame {
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         if (!campoId.getText().equals("")) {
 
-            BaseRepository br = new BaseRepository(em, Provider.class);
+            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Provider.class);
             Provider pv = new Provider();
             pv.setName(campoName.getText());
             pv.setId(Integer.parseInt(campoId.getText()));
@@ -323,7 +323,7 @@ public class FormularioProvider extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     static EntityManager em;
-    static Repository repo;
+   
 
     public void poblarTabla() {
         DefaultTableModel tm = (DefaultTableModel) tablaProviders.getModel();
@@ -334,7 +334,7 @@ public class FormularioProvider extends javax.swing.JFrame {
 
         }
 
-        BaseRepository br = new BaseRepository(em, Provider.class);
+        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Provider.class);
         proveedores = br.getAll(Provider.class);
         DefaultTableModel tableModel = new DefaultTableModel();
 

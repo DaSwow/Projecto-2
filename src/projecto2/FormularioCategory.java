@@ -9,7 +9,7 @@ import entities.Category;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import persistence.BaseRepository;
+import persistence.BaseRepositoryImpl;
 import persistence.Repository;
 
 /**
@@ -25,7 +25,7 @@ public class FormularioCategory extends javax.swing.JFrame {
 
         Principal principal = new Principal();
         em = principal.getEntityManager();
-        repo = new BaseRepository(em, Category.class);
+        repo = new BaseRepositoryImpl(em, Category.class);
         poblarTabla();
     }
 
@@ -222,7 +222,7 @@ public class FormularioCategory extends javax.swing.JFrame {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
 
-        BaseRepository br = new BaseRepository(em, Category.class);
+        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Category.class);
 
         Category ca = new Category();
         ca.setDescription(campoDescription.getText());
@@ -238,7 +238,7 @@ public class FormularioCategory extends javax.swing.JFrame {
             ca.setName(campoName.getText());
             ca.setDescription(campoDescription.getText());
             ca.setId(Integer.parseInt(campoId.getText()));
-            BaseRepository br = new BaseRepository(em, Category.class);
+            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Category.class);
             br.save(ca);
 
         }
@@ -249,7 +249,7 @@ public class FormularioCategory extends javax.swing.JFrame {
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         if (!campoId.getText().equals("")) {
 
-            BaseRepository br = new BaseRepository(em, Category.class);
+            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Category.class);
             Category ca = new Category();
             ca.setName(campoName.getText());
             ca.setDescription(campoDescription.getText());
@@ -302,7 +302,7 @@ public class FormularioCategory extends javax.swing.JFrame {
 
         }
 
-        BaseRepository br = new BaseRepository(em, Category.class);
+        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Category.class);
         categorias = br.getAll(Category.class);
         DefaultTableModel tableModel = new DefaultTableModel();
 

@@ -65,6 +65,8 @@ public class Principal extends javax.swing.JFrame {
         botonProvider = new javax.swing.JButton();
         botonCustomer = new javax.swing.JButton();
         botonVenta = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,6 +101,20 @@ public class Principal extends javax.swing.JFrame {
         });
 
         botonVenta.setText("Realizar Venta");
+        botonVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVentaActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Ventas");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Visualizar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,7 +130,9 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(botonVenta))
                     .addComponent(botonProduct)
                     .addComponent(botonProvider)
-                    .addComponent(botonCustomer))
+                    .addComponent(botonCustomer)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel2))
                 .addContainerGap(300, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -132,7 +150,11 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(botonProvider)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonCustomer)
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -174,6 +196,16 @@ public class Principal extends javax.swing.JFrame {
      fc.setVisible(true);
     }//GEN-LAST:event_botonCustomerActionPerformed
 
+    private void botonVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVentaActionPerformed
+    FormularioRealizarVenta frv=new FormularioRealizarVenta();
+    frv.setVisible(true);
+    }//GEN-LAST:event_botonVentaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       FormularioSales fs=new FormularioSales();
+       fs.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -212,7 +244,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton botonProduct;
     private javax.swing.JButton botonProvider;
     private javax.swing.JButton botonVenta;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
