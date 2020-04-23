@@ -366,21 +366,33 @@ public class FormularioProduct extends javax.swing.JFrame {
         if (tablaProduct.getSelectedRow() != (-1)) {
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 0) != null) {
                 campoID.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 0).toString());
+            }else{
+            campoID.setText("");
             }
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 1) != null) {
                 campoNombre.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 1).toString());
+            }else{
+            campoNombre.setText("");
             }
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 2) != null) {
                 campoPrice.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 2).toString());
+            }else{
+            campoPrice.setText("");
             }
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 3) != null) {
                 campoStock.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 3).toString());
+            }else{
+            campoStock.setText("");
             }
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 4) != null) {
                 campoProviderID.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 4).toString());
+            }else{
+            campoProviderID.setText("");
             }
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 5) != null) {
                 campoCategoryID.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 5).toString());
+            }else{
+            campoCategoryID.setText("");
             }
         }
     }//GEN-LAST:event_botonModificarActionPerformed

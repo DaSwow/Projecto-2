@@ -27,8 +27,8 @@ public class SaleRepositoryImpl<T> extends BaseRepositoryImpl implements SaleRep
 
         ArrayList<SaleItem> saleItems = new ArrayList();
 
-        BaseRepositoryImpl brsi = new SaleRepositoryImpl(super.getEntityManager());
-        ArrayList<SaleItem> saleItemsSinFiltrar = brsi.getAll(Sale.class);
+        BaseRepositoryImpl brsi = new SaleRepositoryImpl(this.getEntityManager());
+        ArrayList<SaleItem> saleItemsSinFiltrar = brsi.getAll(SaleItem.class);
 
         for (int i = 0; i < saleItemsSinFiltrar.size(); i++) {
             if (saleItemsSinFiltrar.get(i).getSaleId() == id) {

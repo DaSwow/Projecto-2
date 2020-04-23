@@ -39,6 +39,7 @@ public class SaleItem extends BaseEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="sale")
+    @Transient
     private Sale sale;
 
     public Sale getSale() {
