@@ -28,7 +28,7 @@ public class FormularioProduct extends javax.swing.JFrame {
         initComponents();
         Principal principal = new Principal();
         em = principal.getEntityManager();
-        repo = new BaseRepositoryImpl(em, Product.class);
+        
         poblarTabla();
     }
 
@@ -388,7 +388,7 @@ public class FormularioProduct extends javax.swing.JFrame {
     }//GEN-LAST:event_botonModificarActionPerformed
 
     static EntityManager em;
-    static Repository repo;
+    
 
     public void poblarTabla() {
         DefaultTableModel tm = (DefaultTableModel) tablaProduct.getModel();

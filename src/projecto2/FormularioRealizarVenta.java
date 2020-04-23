@@ -31,14 +31,14 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
         initComponents();
         Principal principal = new Principal();
         em = principal.getEntityManager();
-        repo = new BaseRepositoryImpl(em, Product.class);
-        poblarTabla();
+       
+    
     }
     
     @Transient
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     static EntityManager em;
-    static Repository repo;
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -46,8 +46,6 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
 
         jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        campoID = new javax.swing.JTextField();
         campoDate = new javax.swing.JTextField();
         campoDiscount = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -72,10 +70,6 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("ID");
-
-        campoID.setEditable(false);
 
         jLabel2.setText("Date");
 
@@ -131,7 +125,7 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setText("jLabel10");
+        jLabel10.setText("Información de la Venta");
 
         jLabel11.setText("Items");
 
@@ -157,7 +151,6 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6))
@@ -165,7 +158,6 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(campoDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(campoID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(campoDiscount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(campoCustomerID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,10 +186,7 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(campoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
@@ -334,27 +323,7 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    public void poblarTabla() {
-        DefaultTableModel tm = (DefaultTableModel) tablaSaleItems.getModel();
-        int rowCount = tm.getRowCount();
-        for (int i = rowCount - 1; i >= 0; i--) {
-            
-            tm.removeRow(i);
-            
-        }
-        
-        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Sale.class);
-        sales = br.getAll(Sale.class);
-        DefaultTableModel tableModel = new DefaultTableModel();
-        
-        for (Sale sale : sales) {
-            tableModel = (DefaultTableModel) tablaSaleItems.getModel();
-            //   Object[] objs = {sale.getId(), sale.get(), sale.getDiscount(), sale.getTotal(), sale.getCustomer()};
-
-            //   tableModel.addRow(objs);
-        }
-        
-    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarProducto;
@@ -362,12 +331,10 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
     private javax.swing.JTextField campoCustomerID;
     private javax.swing.JTextField campoDate;
     private javax.swing.JTextField campoDiscount;
-    private javax.swing.JTextField campoID;
     private javax.swing.JTextField campoProductID;
     private javax.swing.JTextField campoQuantity;
     private javax.swing.JTextField campoTotal;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

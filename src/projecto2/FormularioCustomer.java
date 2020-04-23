@@ -24,7 +24,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
         initComponents();
         Principal principal = new Principal();
         em = principal.getEntityManager();
-        repo = new BaseRepositoryImpl(em, Customer.class);
+ 
         poblarTabla();
     }
 
@@ -328,7 +328,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_botonModificarActionPerformed
 
     static EntityManager em;
-    static Repository repo;
+
 
     public void poblarTabla() {
         DefaultTableModel tm = (DefaultTableModel) tablaCustomers.getModel();

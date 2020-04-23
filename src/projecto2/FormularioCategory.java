@@ -25,7 +25,7 @@ public class FormularioCategory extends javax.swing.JFrame {
 
         Principal principal = new Principal();
         em = principal.getEntityManager();
-        repo = new BaseRepositoryImpl(em, Category.class);
+     
         poblarTabla();
     }
 
@@ -291,7 +291,7 @@ public class FormularioCategory extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     static EntityManager em;
-    static Repository repo;
+
 
     public void poblarTabla() {
         DefaultTableModel tm = (DefaultTableModel) tablaCategory.getModel();
