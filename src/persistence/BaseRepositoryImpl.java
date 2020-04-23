@@ -25,7 +25,7 @@ public class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
         Query query = entityManager.createQuery("from " + entityClass.getName() + " c");
 
         ArrayList lista = new ArrayList(query.getResultList());
-          entityManager.close();
+    
         return lista;
     }
 
@@ -46,11 +46,11 @@ public class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
         if (entity.getId() == null) {
             this.entityManager.persist(entity);
             entityManager.getTransaction().commit();
-              entityManager.close();
+    
             return entity;
         } else {
             entityManager.getTransaction().commit();
-              entityManager.close();
+      
             return this.entityManager.merge(entity);
         }
 
@@ -61,7 +61,7 @@ public class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
             entityManager.getTransaction().begin();
         }
         entityManager.getTransaction().commit();
-        entityManager.close();
+     
     }
 
     @Override
@@ -73,7 +73,7 @@ public class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
         entityManager.remove(entityManager.merge(entity));
 
         entityManager.getTransaction().commit();
-        entityManager.close();
+
 
     }
 
@@ -86,7 +86,7 @@ public class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
         if (transaction.isActive()) {
             entityManager.getTransaction().commit();
         }
-          entityManager.close();
+
     }
 
     protected void ensureTransaction() {
@@ -97,6 +97,6 @@ public class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
         if (!transaction.isActive()) {
             transaction.begin();
         }
-             entityManager.close();
+   
     }
 }
