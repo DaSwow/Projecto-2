@@ -22,8 +22,8 @@ public class FormularioProvider extends javax.swing.JFrame {
 
     public FormularioProvider() {
         initComponents();
-        Principal principal = new Principal();
-        em = principal.getEntityManager();
+     
+        
     
         poblarTabla();
     }
@@ -275,7 +275,7 @@ public class FormularioProvider extends javax.swing.JFrame {
             pv.setWebsite(campoWebsite.getText());
 
             BaseRepositoryImpl br = new ProviderRepositoryImpl(em);
-            br.save(pv);
+            br.edit(pv);
 
         }
 

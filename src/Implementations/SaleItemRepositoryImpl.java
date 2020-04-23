@@ -16,7 +16,7 @@ import persistence.SaleItemRepository;
 public class SaleItemRepositoryImpl <T> extends BaseRepositoryImpl implements SaleItemRepository{
     
        public SaleItemRepositoryImpl(EntityManager em) {
-        super(em, SaleItem.class);
+        super( SaleItem.class);
 
     }
     

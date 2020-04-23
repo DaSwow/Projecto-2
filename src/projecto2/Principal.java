@@ -15,10 +15,12 @@ import javax.persistence.Persistence;
  */
 public class Principal extends javax.swing.JFrame {
 
-    private EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("Projecto2PU");
-    private EntityManager entityManager = managerFactory.createEntityManager();
+    
 
     public Principal() {
+        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("Projecto2PU");
+     EntityManager entityManager = managerFactory.createEntityManager();
+        
         entityManager.getTransaction().begin();
 
         entityManager
@@ -41,14 +43,13 @@ public class Principal extends javax.swing.JFrame {
                 .createNativeQuery("ALTER TABLE `saleitem` AUTO_INCREMENT = 1;")
                 .executeUpdate();
         entityManager.getTransaction().commit();
+         entityManager.close();
 
         initComponents();
 
     }
 
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -202,12 +203,7 @@ public class Principal extends javax.swing.JFrame {
         fs.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-     public EntityManager getNewEM() {
-         
-        return  managerFactory.createEntityManager(); 
-
-    }
-
+  
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -16,7 +16,7 @@ import persistence.ProductRepository;
 public class CategoryRepositoryImpl<T> extends BaseRepositoryImpl implements ProductRepository {
 
     public CategoryRepositoryImpl(EntityManager entityManager) {
-        super(entityManager, Category.class);
+        super(Category.class);
     }
     
     

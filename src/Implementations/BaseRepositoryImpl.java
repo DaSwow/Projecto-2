@@ -3,19 +3,23 @@ package Implementations;
 import entities.BaseEntity;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import persistence.Repository;
 import projecto2.Principal;
 
 public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
 
-    private EntityManager entityManager;
-    private final Class<T> cls;
+    private final EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("Projecto2PU");
+    private EntityManager entityManager = managerFactory.createEntityManager();
+    private Class<T> cls;
 
-    public BaseRepositoryImpl(EntityManager entityManager, Class cls) {
-        this.entityManager = entityManager;
+    public BaseRepositoryImpl(Class cls) {
+
         this.cls = cls;
+
     }
 
     public ArrayList<T> getAll(Class<T> entityClass) {
@@ -30,7 +34,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Reposi
     @Override
     public T find(int id) {
         ensureTransaction();
-        T t=(T) entityManager.find(cls, id);
+        T t = (T) entityManager.find(cls, id);
         entityManager.close();
         return t;
     }
@@ -45,8 +49,8 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Reposi
             return entity;
         } else {
             entityManager.getTransaction().commit();
-           T t= this.entityManager.merge(entity);
-           entityManager.close();
+            T t = this.entityManager.merge(entity);
+            entityManager.close();
             return t;
         }
 
@@ -82,8 +86,8 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Reposi
     }
 
     protected void ensureTransaction() {
-  if (!entityManager.isOpen()) {
-            this.entityManager=(new Principal().getNewEM());
+        if (!entityManager.isOpen()) {
+            this.entityManager = managerFactory.createEntityManager();
         }
 
         if (!entityManager.getTransaction().isActive()) {
@@ -93,7 +97,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Reposi
         if (!transaction.isActive()) {
             transaction.begin();
         }
-      
+
     }
 
     public EntityManager getEntityManager() {

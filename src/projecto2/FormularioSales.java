@@ -20,9 +20,7 @@ public class FormularioSales extends javax.swing.JFrame {
 
     public FormularioSales() {
         initComponents();
-        Principal principal = new Principal();
-        em = principal.getEntityManager();
-
+  
         poblarTabla();
     }
 

@@ -16,7 +16,7 @@ import persistence.ProviderRepository;
 public class ProviderRepositoryImpl <T> extends BaseRepositoryImpl implements ProviderRepository {
 
     public ProviderRepositoryImpl(EntityManager entityManager) {
-        super(entityManager, Provider.class);
+        super( Provider.class);
     }
     
     

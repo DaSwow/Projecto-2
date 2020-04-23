@@ -10,7 +10,7 @@ public class CustomerRepositoryImpl <T> extends BaseRepositoryImpl implements Cu
 
     
     public CustomerRepositoryImpl(EntityManager entityManager) {
-        super(entityManager, Customer.class);
+        super(Customer.class);
     }
     
     

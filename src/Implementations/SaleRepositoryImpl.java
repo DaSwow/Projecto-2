@@ -18,7 +18,7 @@ public class SaleRepositoryImpl<T> extends BaseRepositoryImpl implements SaleRep
   
 
     public SaleRepositoryImpl(EntityManager em) {
-       super(em,Sale.class);
+       super(Sale.class);
     }
 
  

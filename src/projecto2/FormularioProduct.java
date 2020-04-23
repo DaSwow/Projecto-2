@@ -26,8 +26,8 @@ public class FormularioProduct extends javax.swing.JFrame {
 
     public FormularioProduct() {
         initComponents();
-        Principal principal = new Principal();
-        em = principal.getEntityManager();
+       
+        
 
         poblarTabla();
     }

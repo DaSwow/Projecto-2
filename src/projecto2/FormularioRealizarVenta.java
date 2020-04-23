@@ -31,9 +31,7 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
     
     public FormularioRealizarVenta() {
         initComponents();
-        Principal principal = new Principal();
-        em = principal.getEntityManager();
-       
+    
     
     }
     

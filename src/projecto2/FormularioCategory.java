@@ -25,8 +25,8 @@ public class FormularioCategory extends javax.swing.JFrame {
     public FormularioCategory() {
         initComponents();
 
-        Principal principal = new Principal();
-        em = principal.getEntityManager();
+ 
+
      
         poblarTabla();
     }
@@ -241,7 +241,7 @@ public class FormularioCategory extends javax.swing.JFrame {
             ca.setDescription(campoDescription.getText());
             ca.setId(Integer.parseInt(campoId.getText()));
             BaseRepositoryImpl br = new CategoryRepositoryImpl(em);
-            br.save(ca);
+            br.edit(ca);
 
         }
 

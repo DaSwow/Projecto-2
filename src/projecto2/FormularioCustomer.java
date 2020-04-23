@@ -22,8 +22,8 @@ public class FormularioCustomer extends javax.swing.JFrame {
 
     public FormularioCustomer() {
         initComponents();
-        Principal principal = new Principal();
-        em = principal.getEntityManager();
+      
+
  
         poblarTabla();
     }
@@ -275,7 +275,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
             cm.setRfc(campoRFC.getText());
 
             BaseRepositoryImpl br = new  CustomerRepositoryImpl(em);
-            br.save(cm);
+            br.edit(cm);
 
         }
 
