@@ -12,12 +12,14 @@ import entities.SaleItem;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.Transient;
 import javax.swing.table.DefaultTableModel;
-import persistence.BaseRepositoryImpl;
-import persistence.Repository;
+import Implementations.BaseRepositoryImpl;
+import Implementations.CustomerRepositoryImpl;
+import Implementations.ProductRepositoryImpl;
+import Implementations.SaleItemRepositoryImpl;
+import Implementations.SaleRepositoryImpl;
 
 /**
  *
@@ -248,10 +250,10 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
         Sale sale = new Sale();
         Customer cm;
         
-        BaseRepositoryImpl brcm = new BaseRepositoryImpl(em, Customer.class);
-        BaseRepositoryImpl brsl = new BaseRepositoryImpl(em, Sale.class);
-        BaseRepositoryImpl brpd = new BaseRepositoryImpl(em, Product.class);
-        BaseRepositoryImpl brsi = new BaseRepositoryImpl(em, SaleItem.class);
+        BaseRepositoryImpl brcm = new CustomerRepositoryImpl(em);
+        BaseRepositoryImpl brsl = new SaleRepositoryImpl(em);
+        BaseRepositoryImpl brpd = new ProductRepositoryImpl(em);
+        BaseRepositoryImpl brsi = new SaleItemRepositoryImpl(em);
         
         cm = (Customer) brcm.find(Integer.parseInt(campoCustomerID.getText()));
         if (cm == null) {
@@ -296,7 +298,7 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
     private void botonAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarProductoActionPerformed
 
 
-        BaseRepositoryImpl brpd = new BaseRepositoryImpl(em, Product.class);
+        BaseRepositoryImpl brpd = new ProductRepositoryImpl(em);
         Product product = (Product) brpd.find(Integer.parseInt(campoProductID.getText()));
         if (product == null) {
             return;

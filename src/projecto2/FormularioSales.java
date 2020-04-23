@@ -9,8 +9,8 @@ import entities.Sale;
 import entities.SaleItem;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import persistence.BaseRepositoryImpl;
-import persistence.SaleRepositoryImpl;
+import Implementations.BaseRepositoryImpl;
+import Implementations.SaleRepositoryImpl;
 import static projecto2.FormularioProvider.em;
 
 public class FormularioSales extends javax.swing.JFrame {
@@ -203,7 +203,7 @@ public class FormularioSales extends javax.swing.JFrame {
 
     public void poblarTabla() {
 
-        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Sale.class);
+        BaseRepositoryImpl br = new SaleRepositoryImpl(em);
 
         sales = br.getAll(Sale.class);
 

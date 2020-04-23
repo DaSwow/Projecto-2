@@ -9,8 +9,8 @@ import entities.Customer;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import persistence.BaseRepositoryImpl;
-import persistence.Repository;
+import Implementations.BaseRepositoryImpl;
+import Implementations.CustomerRepositoryImpl;
 
 /**
  *
@@ -252,7 +252,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
-        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Customer.class);
+        BaseRepositoryImpl br = new CustomerRepositoryImpl(em);
 
         Customer cm = new Customer();
         cm.setAddress(campoAddress.getText());
@@ -274,7 +274,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
             cm.setPhone(campoPhone.getText());
             cm.setRfc(campoRFC.getText());
 
-            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Customer.class);
+            BaseRepositoryImpl br = new  CustomerRepositoryImpl(em);
             br.save(cm);
 
         }
@@ -285,7 +285,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         if (!campoID.getText().equals("")) {
 
-            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Customer.class);
+            BaseRepositoryImpl br = new  CustomerRepositoryImpl(em);
             Customer cm = new Customer();
             cm.setName(campoName.getText());
             cm.setId(Integer.parseInt(campoID.getText()));
@@ -339,7 +339,7 @@ public class FormularioCustomer extends javax.swing.JFrame {
 
         }
 
-        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Customer.class);
+        BaseRepositoryImpl br = new  CustomerRepositoryImpl(em);
         customers = br.getAll(Customer.class);
         DefaultTableModel tableModel = new DefaultTableModel();
 

@@ -11,10 +11,10 @@ import entities.Provider;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import persistence.BaseRepositoryImpl;
-import persistence.Repository;
-import static projecto2.FormularioCategory.em;
-import static projecto2.FormularioProvider.em;
+import Implementations.BaseRepositoryImpl;
+import Implementations.CategoryRepositoryImpl;
+import Implementations.ProductRepositoryImpl;
+import Implementations.ProviderRepositoryImpl;
 
 /**
  *
@@ -28,7 +28,7 @@ public class FormularioProduct extends javax.swing.JFrame {
         initComponents();
         Principal principal = new Principal();
         em = principal.getEntityManager();
-        
+
         poblarTabla();
     }
 
@@ -249,9 +249,9 @@ public class FormularioProduct extends javax.swing.JFrame {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
 
-        BaseRepositoryImpl brpd = new BaseRepositoryImpl(em, Product.class);
-        BaseRepositoryImpl brcg = new BaseRepositoryImpl(em, Category.class);
-        BaseRepositoryImpl brpv = new BaseRepositoryImpl(em, Provider.class);
+        BaseRepositoryImpl brpd = new ProductRepositoryImpl(em);
+        BaseRepositoryImpl brcg = new CategoryRepositoryImpl(em);
+        BaseRepositoryImpl brpv = new ProviderRepositoryImpl(em);
 
         Product pd = new Product();
         try {
@@ -281,9 +281,9 @@ public class FormularioProduct extends javax.swing.JFrame {
 
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
         if (!campoID.getText().equals("")) {
-            BaseRepositoryImpl brpd = new BaseRepositoryImpl(em, Product.class);
-            BaseRepositoryImpl brcg = new BaseRepositoryImpl(em, Category.class);
-            BaseRepositoryImpl brpv = new BaseRepositoryImpl(em, Provider.class);
+            BaseRepositoryImpl brpd = new ProductRepositoryImpl(em);
+            BaseRepositoryImpl brcg = new CategoryRepositoryImpl(em);
+            BaseRepositoryImpl brpv = new ProviderRepositoryImpl(em);
 
             Product pd = new Product();
             pd.setName(campoNombre.getText());
@@ -291,24 +291,23 @@ public class FormularioProduct extends javax.swing.JFrame {
             pd.setStock(Integer.parseInt(campoStock.getText()));
 
             try {
-            pd.setCategory((Category) brcg.find(Integer.parseInt(campoCategoryID.getText())));
-            if (pd.getCategory() != null) {
-                pd.setCategoryId(pd.getCategory().getId());
-            }
-            pd.setProvider((Provider) brpv.find(Integer.parseInt(campoProviderID.getText())));
-            if (pd.getProvider() != null) {
-                pd.setProviderId(pd.getProvider().getId());
-            }
-            if (pd.getCategory() == null || pd.getProvider() == null) {
+                pd.setCategory((Category) brcg.find(Integer.parseInt(campoCategoryID.getText())));
+                if (pd.getCategory() != null) {
+                    pd.setCategoryId(pd.getCategory().getId());
+                }
+                pd.setProvider((Provider) brpv.find(Integer.parseInt(campoProviderID.getText())));
+                if (pd.getProvider() != null) {
+                    pd.setProviderId(pd.getProvider().getId());
+                }
+                if (pd.getCategory() == null || pd.getProvider() == null) {
+                    return;
+                }
+
+            } catch (NumberFormatException e) {
                 return;
             }
-
-        } catch (NumberFormatException e) {
-            return;
-        }
             pd.setId(Integer.parseInt(campoID.getText()));
 
-           
             brpd.save(pd);
 
         }
@@ -317,10 +316,10 @@ public class FormularioProduct extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
-         if (!campoID.getText().equals("")) {
-            BaseRepositoryImpl brpd = new BaseRepositoryImpl(em, Product.class);
-            BaseRepositoryImpl brcg = new BaseRepositoryImpl(em, Category.class);
-            BaseRepositoryImpl brpv = new BaseRepositoryImpl(em, Provider.class);
+        if (!campoID.getText().equals("")) {
+            BaseRepositoryImpl brpd = new ProductRepositoryImpl(em);
+            BaseRepositoryImpl brcg = new CategoryRepositoryImpl(em);
+            BaseRepositoryImpl brpv = new ProviderRepositoryImpl(em);
 
             Product pd = new Product();
             pd.setName(campoNombre.getText());
@@ -328,24 +327,23 @@ public class FormularioProduct extends javax.swing.JFrame {
             pd.setStock(Integer.parseInt(campoStock.getText()));
 
             try {
-            pd.setCategory((Category) brcg.find(Integer.parseInt(campoCategoryID.getText())));
-            if (pd.getCategory() != null) {
-                pd.setCategoryId(pd.getCategory().getId());
-            }
-            pd.setProvider((Provider) brpv.find(Integer.parseInt(campoProviderID.getText())));
-            if (pd.getProvider() != null) {
-                pd.setProviderId(pd.getProvider().getId());
-            }
-            if (pd.getCategory() == null || pd.getProvider() == null) {
+                pd.setCategory((Category) brcg.find(Integer.parseInt(campoCategoryID.getText())));
+                if (pd.getCategory() != null) {
+                    pd.setCategoryId(pd.getCategory().getId());
+                }
+                pd.setProvider((Provider) brpv.find(Integer.parseInt(campoProviderID.getText())));
+                if (pd.getProvider() != null) {
+                    pd.setProviderId(pd.getProvider().getId());
+                }
+                if (pd.getCategory() == null || pd.getProvider() == null) {
+                    return;
+                }
+
+            } catch (NumberFormatException e) {
                 return;
             }
-
-        } catch (NumberFormatException e) {
-            return;
-        }
             pd.setId(Integer.parseInt(campoID.getText()));
 
-           
             brpd.delete(pd);
             campoID.setText("");
             campoCategoryID.setText("");
@@ -353,7 +351,7 @@ public class FormularioProduct extends javax.swing.JFrame {
             campoPrice.setText("");
             campoProviderID.setText("");
             campoStock.setText("");
-            
+
         }
 
         poblarTabla();
@@ -388,7 +386,6 @@ public class FormularioProduct extends javax.swing.JFrame {
     }//GEN-LAST:event_botonModificarActionPerformed
 
     static EntityManager em;
-    
 
     public void poblarTabla() {
         DefaultTableModel tm = (DefaultTableModel) tablaProduct.getModel();
@@ -399,7 +396,7 @@ public class FormularioProduct extends javax.swing.JFrame {
 
         }
 
-        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Product.class);
+        BaseRepositoryImpl br = new ProductRepositoryImpl(em);
         products = br.getAll(Product.class);
         DefaultTableModel tableModel = new DefaultTableModel();
 

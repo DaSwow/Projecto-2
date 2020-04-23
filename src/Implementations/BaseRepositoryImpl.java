@@ -1,4 +1,4 @@
-package persistence;
+package Implementations;
 
 import entities.BaseEntity;
 import java.util.ArrayList;
@@ -6,8 +6,9 @@ import java.util.Arrays;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import persistence.Repository;
 
-public class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
+public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
 
     private final EntityManager entityManager;
     private final Class<T> cls;
@@ -99,4 +100,16 @@ public class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
         }
    
     }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public Class<T> getCls() {
+        return cls;
+    }
+    
+    
+    
+    
 }

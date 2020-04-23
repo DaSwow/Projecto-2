@@ -9,8 +9,8 @@ import entities.Provider;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import persistence.BaseRepositoryImpl;
-import persistence.Repository;
+import Implementations.BaseRepositoryImpl;
+import Implementations.ProviderRepositoryImpl;
 
 /**
  *
@@ -252,7 +252,7 @@ public class FormularioProvider extends javax.swing.JFrame {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
 
-        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Provider.class);
+        BaseRepositoryImpl br = new ProviderRepositoryImpl(em);
 
         Provider pv = new Provider();
         pv.setAddress(campoAddress.getText());
@@ -274,7 +274,7 @@ public class FormularioProvider extends javax.swing.JFrame {
             pv.setPhone(campoPhone.getText());
             pv.setWebsite(campoWebsite.getText());
 
-            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Provider.class);
+            BaseRepositoryImpl br = new ProviderRepositoryImpl(em);
             br.save(pv);
 
         }
@@ -285,7 +285,7 @@ public class FormularioProvider extends javax.swing.JFrame {
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         if (!campoId.getText().equals("")) {
 
-            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Provider.class);
+            BaseRepositoryImpl br = new ProviderRepositoryImpl(em);
             Provider pv = new Provider();
             pv.setName(campoName.getText());
             pv.setId(Integer.parseInt(campoId.getText()));
@@ -334,7 +334,7 @@ public class FormularioProvider extends javax.swing.JFrame {
 
         }
 
-        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Provider.class);
+        BaseRepositoryImpl br = new ProviderRepositoryImpl(em);
         proveedores = br.getAll(Provider.class);
         DefaultTableModel tableModel = new DefaultTableModel();
 

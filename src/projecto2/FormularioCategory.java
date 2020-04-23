@@ -9,8 +9,10 @@ import entities.Category;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import persistence.BaseRepositoryImpl;
+import Implementations.BaseRepositoryImpl;
+import Implementations.CategoryRepositoryImpl;
 import persistence.Repository;
+import Implementations.SaleRepositoryImpl;
 
 /**
  *
@@ -222,7 +224,7 @@ public class FormularioCategory extends javax.swing.JFrame {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
 
-        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Category.class);
+        BaseRepositoryImpl br = new CategoryRepositoryImpl(em);
 
         Category ca = new Category();
         ca.setDescription(campoDescription.getText());
@@ -238,7 +240,7 @@ public class FormularioCategory extends javax.swing.JFrame {
             ca.setName(campoName.getText());
             ca.setDescription(campoDescription.getText());
             ca.setId(Integer.parseInt(campoId.getText()));
-            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Category.class);
+            BaseRepositoryImpl br = new CategoryRepositoryImpl(em);
             br.save(ca);
 
         }
@@ -249,7 +251,7 @@ public class FormularioCategory extends javax.swing.JFrame {
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         if (!campoId.getText().equals("")) {
 
-            BaseRepositoryImpl br = new BaseRepositoryImpl(em, Category.class);
+            BaseRepositoryImpl br = new CategoryRepositoryImpl(em);
             Category ca = new Category();
             ca.setName(campoName.getText());
             ca.setDescription(campoDescription.getText());
@@ -277,10 +279,10 @@ public class FormularioCategory extends javax.swing.JFrame {
                 campoId.setText(tablaCategory.getValueAt(tablaCategory.getSelectedRow(), 0).toString());
             }
             if (tablaCategory.getValueAt(tablaCategory.getSelectedRow(), 1) != null) {
-                campoName.setText(tablaCategory.getValueAt(tablaCategory.getSelectedRow(), 0).toString());
+                campoName.setText(tablaCategory.getValueAt(tablaCategory.getSelectedRow(), 1).toString());
             }
             if (tablaCategory.getValueAt(tablaCategory.getSelectedRow(), 2) != null) {
-                campoDescription.setText(tablaCategory.getValueAt(tablaCategory.getSelectedRow(), 1).toString());
+                campoDescription.setText(tablaCategory.getValueAt(tablaCategory.getSelectedRow(), 2).toString());
             }
           
         }
@@ -302,7 +304,7 @@ public class FormularioCategory extends javax.swing.JFrame {
 
         }
 
-        BaseRepositoryImpl br = new BaseRepositoryImpl(em, Category.class);
+        BaseRepositoryImpl br = new CategoryRepositoryImpl(em);
         categorias = br.getAll(Category.class);
         DefaultTableModel tableModel = new DefaultTableModel();
 
