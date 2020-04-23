@@ -255,9 +255,15 @@ public class FormularioProduct extends javax.swing.JFrame {
 
         Product pd = new Product();
         try {
+            if(campoCategoryID.getText().equals("")){
+            return;
+            }
             pd.setCategory((Category) brcg.find(Integer.parseInt(campoCategoryID.getText())));
             if (pd.getCategory() != null) {
                 pd.setCategoryId(pd.getCategory().getId());
+            }
+            if(campoProviderID.getText().equals("")){
+            return;
             }
             pd.setProvider((Provider) brpv.find(Integer.parseInt(campoProviderID.getText())));
             if (pd.getProvider() != null) {
@@ -295,6 +301,7 @@ public class FormularioProduct extends javax.swing.JFrame {
                 if (pd.getCategory() != null) {
                     pd.setCategoryId(pd.getCategory().getId());
                 }
+                
                 pd.setProvider((Provider) brpv.find(Integer.parseInt(campoProviderID.getText())));
                 if (pd.getProvider() != null) {
                     pd.setProviderId(pd.getProvider().getId());
@@ -308,7 +315,7 @@ public class FormularioProduct extends javax.swing.JFrame {
             }
             pd.setId(Integer.parseInt(campoID.getText()));
 
-            brpd.save(pd);
+            brpd.edit(pd);
 
         }
 
@@ -331,17 +338,22 @@ public class FormularioProduct extends javax.swing.JFrame {
                 if (pd.getCategory() != null) {
                     pd.setCategoryId(pd.getCategory().getId());
                 }
+            
+               
                 pd.setProvider((Provider) brpv.find(Integer.parseInt(campoProviderID.getText())));
                 if (pd.getProvider() != null) {
                     pd.setProviderId(pd.getProvider().getId());
                 }
+                     } catch (NumberFormatException e) {
+                return;
+            }
+           
+                
                 if (pd.getCategory() == null || pd.getProvider() == null) {
                     return;
                 }
 
-            } catch (NumberFormatException e) {
-                return;
-            }
+          
             pd.setId(Integer.parseInt(campoID.getText()));
 
             brpd.delete(pd);
@@ -414,7 +426,7 @@ public class FormularioProduct extends javax.swing.JFrame {
 
         for (Product producto : products) {
             tableModel = (DefaultTableModel) tablaProduct.getModel();
-            Object[] objs = {producto.getId(), producto.getName(), producto.getPrice(), producto.getStock(), producto.getCategoryId(), producto.getProviderId()};
+            Object[] objs = {producto.getId(), producto.getName(), producto.getPrice(), producto.getStock(), producto.getProviderId(), producto.getCategory()};
 
             tableModel.addRow(objs);
         }

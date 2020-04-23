@@ -9,7 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+
 
 /**
  *
@@ -39,7 +39,6 @@ public class SaleItem extends BaseEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="sale")
-    @Transient
     private Sale sale;
 
     public Sale getSale() {

@@ -15,13 +15,11 @@ import javax.persistence.Persistence;
  */
 public class Principal extends javax.swing.JFrame {
 
-        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("Projecto2PU");
-        EntityManager entityManager = managerFactory.createEntityManager();
-
-     
+    private EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("Projecto2PU");
+    private EntityManager entityManager = managerFactory.createEntityManager();
 
     public Principal() {
-             entityManager.getTransaction().begin();
+        entityManager.getTransaction().begin();
 
         entityManager
                 .createNativeQuery("ALTER TABLE `category` AUTO_INCREMENT = 1;")
@@ -29,31 +27,29 @@ public class Principal extends javax.swing.JFrame {
         entityManager
                 .createNativeQuery("ALTER TABLE `customer` AUTO_INCREMENT = 1;")
                 .executeUpdate();
-         entityManager
+        entityManager
                 .createNativeQuery("ALTER TABLE `product` AUTO_INCREMENT = 1;")
                 .executeUpdate();
         entityManager
                 .createNativeQuery("ALTER TABLE `provider` AUTO_INCREMENT = 1;")
                 .executeUpdate();
-        
+
         entityManager
                 .createNativeQuery("ALTER TABLE `sale` AUTO_INCREMENT = 1;")
                 .executeUpdate();
         entityManager
                 .createNativeQuery("ALTER TABLE `saleitem` AUTO_INCREMENT = 1;")
                 .executeUpdate();
-       entityManager.getTransaction().commit();
-        
+        entityManager.getTransaction().commit();
+
         initComponents();
-        
-   
+
     }
 
     public EntityManager getEntityManager() {
         return entityManager;
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -176,36 +172,43 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProductActionPerformed
-     FormularioProduct fp=new FormularioProduct();
-     fp.setVisible(true);
+        FormularioProduct fp = new FormularioProduct();
+        fp.setVisible(true);
     }//GEN-LAST:event_botonProductActionPerformed
 
     private void botonCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCategoryActionPerformed
-      FormularioCategory fc=new FormularioCategory();
-      fc.setVisible(true);
+        FormularioCategory fc = new FormularioCategory();
+        fc.setVisible(true);
     }//GEN-LAST:event_botonCategoryActionPerformed
 
     private void botonProviderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProviderActionPerformed
-      FormularioProvider fp=new FormularioProvider();
-      fp.setVisible(true);
-      
+        FormularioProvider fp = new FormularioProvider();
+        fp.setVisible(true);
+
     }//GEN-LAST:event_botonProviderActionPerformed
 
     private void botonCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCustomerActionPerformed
-     FormularioCustomer fc=new FormularioCustomer();
-     fc.setVisible(true);
+        FormularioCustomer fc = new FormularioCustomer();
+        fc.setVisible(true);
     }//GEN-LAST:event_botonCustomerActionPerformed
 
     private void botonVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVentaActionPerformed
-    FormularioRealizarVenta frv=new FormularioRealizarVenta();
-    frv.setVisible(true);
+        FormularioRealizarVenta frv = new FormularioRealizarVenta();
+        frv.setVisible(true);
     }//GEN-LAST:event_botonVentaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       FormularioSales fs=new FormularioSales();
-       fs.setVisible(true);
+        FormularioSales fs = new FormularioSales();
+        fs.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+     public EntityManager getNewEM() {
+         
+        return  managerFactory.createEntityManager(); 
+
+    }
+
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -238,6 +241,7 @@ public class Principal extends javax.swing.JFrame {
         });
     }
 
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCategory;
     private javax.swing.JButton botonCustomer;

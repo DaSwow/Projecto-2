@@ -2,15 +2,15 @@ package Implementations;
 
 import entities.BaseEntity;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import persistence.Repository;
+import projecto2.Principal;
 
 public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
 
-    private final EntityManager entityManager;
+    private EntityManager entityManager;
     private final Class<T> cls;
 
     public BaseRepositoryImpl(EntityManager entityManager, Class cls) {
@@ -19,97 +19,93 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Reposi
     }
 
     public ArrayList<T> getAll(Class<T> entityClass) {
-           if (!entityManager.getTransaction().isActive()) {
-            entityManager.getTransaction().begin();
-        }
-
+        ensureTransaction();
         Query query = entityManager.createQuery("from " + entityClass.getName() + " c");
 
         ArrayList lista = new ArrayList(query.getResultList());
-    
+        entityManager.close();
         return lista;
     }
 
     @Override
     public T find(int id) {
-          if (!entityManager.getTransaction().isActive()) {
-            entityManager.getTransaction().begin();
-        }
-        return (T) entityManager.find(cls, id);
+        ensureTransaction();
+        T t=(T) entityManager.find(cls, id);
+        entityManager.close();
+        return t;
     }
 
     @Override
     public T save(T entity) {
-        if (!entityManager.getTransaction().isActive()) {
-            entityManager.getTransaction().begin();
-        }
-
+        ensureTransaction();
         if (entity.getId() == null) {
             this.entityManager.persist(entity);
             entityManager.getTransaction().commit();
-    
+            entityManager.close();
             return entity;
         } else {
             entityManager.getTransaction().commit();
-      
-            return this.entityManager.merge(entity);
+           T t= this.entityManager.merge(entity);
+           entityManager.close();
+            return t;
         }
 
     }
 
     public void edit(T entity) {
-        if (!entityManager.getTransaction().isActive()) {
-            entityManager.getTransaction().begin();
-        }
+        ensureTransaction();
+        entityManager.merge(entity);
         entityManager.getTransaction().commit();
-     
+        entityManager.close();
     }
 
     @Override
     public void delete(T entity) {
-        if (!entityManager.getTransaction().isActive()) {
-            entityManager.getTransaction().begin();
-        }
         ensureTransaction();
+
         entityManager.remove(entityManager.merge(entity));
 
         entityManager.getTransaction().commit();
-
+        entityManager.close();
 
     }
 
     @Override
     public void commit() {
-         if (!entityManager.getTransaction().isActive()) {
-            entityManager.getTransaction().begin();
-        }
+        ensureTransaction();
         EntityTransaction transaction = this.entityManager.getTransaction();
         if (transaction.isActive()) {
             entityManager.getTransaction().commit();
+            entityManager.close();
         }
 
     }
 
     protected void ensureTransaction() {
-         if (!entityManager.getTransaction().isActive()) {
+  if (!entityManager.isOpen()) {
+            this.entityManager=(new Principal().getNewEM());
+        }
+
+        if (!entityManager.getTransaction().isActive()) {
             entityManager.getTransaction().begin();
         }
         EntityTransaction transaction = this.entityManager.getTransaction();
         if (!transaction.isActive()) {
             transaction.begin();
         }
-   
+      
     }
 
     public EntityManager getEntityManager() {
         return entityManager;
     }
 
+    public void setEntityManager(EntityManager em) {
+        this.entityManager = em;
+    }
+
     public Class<T> getCls() {
         return cls;
     }
-    
-    
-    
-    
+
 }
