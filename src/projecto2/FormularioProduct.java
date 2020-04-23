@@ -426,7 +426,7 @@ public class FormularioProduct extends javax.swing.JFrame {
 
         for (Product producto : products) {
             tableModel = (DefaultTableModel) tablaProduct.getModel();
-            Object[] objs = {producto.getId(), producto.getName(), producto.getPrice(), producto.getStock(), producto.getProviderId(), producto.getCategory()};
+            Object[] objs = {producto.getId(), producto.getName(), producto.getPrice(), producto.getStock(), producto.getProviderId(), producto.getCategoryId()};
 
             tableModel.addRow(objs);
         }
