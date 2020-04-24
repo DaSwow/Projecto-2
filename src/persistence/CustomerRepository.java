@@ -14,20 +14,27 @@ import java.util.ArrayList;
  * @author carls
  * @param <T>
  */
-public interface CustomerRepository<T extends BaseEntity> {
+public interface CustomerRepository  <T extends BaseEntity> extends Repository<Customer>{
 
+    @Override
     Customer find(int id);
 
+    @Override
     void save(Customer entity);
 
+    @Override
     void delete(Customer entity);
 
+    @Override
     void commit();
 
+    @Override
     void edit(Customer entity);
 
+    @Override
     void ensureTransaction();
     
-       ArrayList<T> getAll();
+    @Override
+     ArrayList<Customer> getAll();
 
 }

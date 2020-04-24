@@ -31,21 +31,23 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
 
     ArrayList<Sale> sales = new ArrayList();
 
-    public FormularioRealizarVenta() {
-        initComponents();
-
-    }
-
-  
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    
-    
-        CustomerRepository brcm = new CustomerRepositoryImpl(em);
-        SaleRepository brsl = new SaleRepositoryImpl(em);
-        ProductRepository brpd = new ProductRepositoryImpl(em);
-        SaleItemRepository brsi = new SaleItemRepositoryImpl(em);
-        
     static EntityManager em;
+
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    CustomerRepository brcm;
+    SaleRepository brsl;
+    ProductRepository brpd;
+    SaleItemRepository brsi;
+
+    public FormularioRealizarVenta(EntityManager em) {
+        initComponents();
+        this.em = em;
+        brcm = new CustomerRepositoryImpl(em);
+        brsl = new SaleRepositoryImpl(em);
+        brpd = new ProductRepositoryImpl(em);
+        brsi = new SaleItemRepositoryImpl(em);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -255,7 +257,6 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
         Sale sale = new Sale();
         Customer cm;
 
-
         cm = (Customer) brcm.find(Integer.parseInt(campoCustomerID.getText()));
         if (cm == null) {
             return;
@@ -298,14 +299,13 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
 
     private void botonAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarProductoActionPerformed
 
-       
         Product product = (Product) brpd.find(Integer.parseInt(campoProductID.getText()));
         if (product == null) {
             return;
         }
         int cantidad = Integer.parseInt(campoQuantity.getText());
 
-        DefaultTableModel tableModel ;
+        DefaultTableModel tableModel;
 
         tableModel = (DefaultTableModel) tablaSaleItems.getModel();
         Object[] objs = {product.getId(), product.getPrice(), cantidad, cantidad * product.getPrice()};

@@ -25,14 +25,17 @@ import persistence.ProviderRepository;
 public class FormularioProduct extends javax.swing.JFrame {
 
     ArrayList<Product> products = new ArrayList();
-
+    static EntityManager em;
     ProductRepository brpd = new ProductRepositoryImpl(em);
     CategoryRepository brcg = new CategoryRepositoryImpl(em);
     ProviderRepository brpv = new ProviderRepositoryImpl(em);
 
-    public FormularioProduct() {
+    public FormularioProduct(EntityManager em) {
         initComponents();
-
+        this.em = em;
+        brpd = new ProductRepositoryImpl(em);
+        brcg = new CategoryRepositoryImpl(em);
+        brpv = new ProviderRepositoryImpl(em);
         poblarTabla();
     }
 
@@ -321,7 +324,6 @@ public class FormularioProduct extends javax.swing.JFrame {
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         if (!campoID.getText().equals("")) {
-    
 
             Product pd = new Product();
             pd.setName(campoNombre.getText());
@@ -401,8 +403,6 @@ public class FormularioProduct extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonModificarActionPerformed
 
-    static EntityManager em;
-
     public void poblarTabla() {
         DefaultTableModel tm = (DefaultTableModel) tablaProduct.getModel();
         int rowCount = tm.getRowCount();
@@ -412,7 +412,6 @@ public class FormularioProduct extends javax.swing.JFrame {
 
         }
 
-      
         products = brpd.getAll();
         DefaultTableModel tableModel = new DefaultTableModel();
 

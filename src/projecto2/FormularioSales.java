@@ -10,19 +10,19 @@ import entities.SaleItem;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Implementations.SaleRepositoryImpl;
+import javax.persistence.EntityManager;
 import persistence.SaleRepository;
-import static projecto2.FormularioProvider.em;
 
 public class FormularioSales extends javax.swing.JFrame {
 
     private ArrayList<Sale> sales;
     private ArrayList<SaleItem> saleItems;
-
+    private static EntityManager em;
     private SaleRepository br = new SaleRepositoryImpl(em);
-
-    public FormularioSales() {
+    
+    public FormularioSales(EntityManager em) {
         initComponents();
-
+        this.em=em;
         poblarTabla();
     }
 

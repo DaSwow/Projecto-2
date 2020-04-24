@@ -4,18 +4,21 @@ import entities.Sale;
 import entities.SaleItem;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
+import persistence.SaleItemRepository;
 import persistence.SaleRepository;
 
 /**
  *
  * @author carls
  */
-public class SaleRepositoryImpl extends BaseRepository<Sale> implements SaleRepository {
+public class SaleRepositoryImpl extends BaseRepository<Sale> implements SaleRepository<Sale> {
 
-  
+     SaleItemRepository brsi;
 
     public SaleRepositoryImpl(EntityManager em) {
-       super(Sale.class);
+       super(Sale.class,em);
+        brsi = new SaleItemRepositoryImpl(em);
+       
     }
 
  
@@ -24,9 +27,7 @@ public class SaleRepositoryImpl extends BaseRepository<Sale> implements SaleRepo
     public ArrayList<SaleItem> findAllItemSales(int id) {
 
         ArrayList<SaleItem> saleItems = new ArrayList();
-
-        BaseRepository brsi = new SaleRepositoryImpl(this.getEntityManager());
-        ArrayList<SaleItem> saleItemsSinFiltrar = brsi.getAll(SaleItem.class);
+        ArrayList<SaleItem> saleItemsSinFiltrar = brsi.getAll();
 
         for (int i = 0; i < saleItemsSinFiltrar.size(); i++) {
             if (saleItemsSinFiltrar.get(i).getSaleId() == id) {
@@ -68,7 +69,7 @@ public class SaleRepositoryImpl extends BaseRepository<Sale> implements SaleRepo
 
     @Override
     public ArrayList getAll() {
-        return super.getAll(Sale.class);
+        return super.getAll();
     }
     
     

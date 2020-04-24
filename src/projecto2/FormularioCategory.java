@@ -13,13 +13,14 @@ import persistence.CategoryRepository;
  */
 public class FormularioCategory extends javax.swing.JFrame {
 
-    ArrayList<Category> categorias = new ArrayList();
-    CategoryRepository br = new CategoryRepositoryImpl(em);
-    static EntityManager em;
+    private static EntityManager em;
+    private ArrayList<Category> categorias = new ArrayList();
+    private CategoryRepository br ;
 
-    public FormularioCategory( ) {
+    public FormularioCategory(EntityManager em) {
         initComponents();
-       
+        this.em=em;
+        br= new CategoryRepositoryImpl(em);
         poblarTabla();
     }
 
@@ -300,6 +301,9 @@ public class FormularioCategory extends javax.swing.JFrame {
         }
 
     }
+
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonActualizar;

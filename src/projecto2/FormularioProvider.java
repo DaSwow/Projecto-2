@@ -9,7 +9,6 @@ import entities.Provider;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import Implementations.BaseRepository;
 import Implementations.CategoryRepositoryImpl;
 import Implementations.ProviderRepositoryImpl;
 import persistence.CategoryRepository;
@@ -22,13 +21,15 @@ import persistence.ProviderRepository;
 public class FormularioProvider extends javax.swing.JFrame {
 
     ArrayList<Provider> proveedores = new ArrayList();
+    static EntityManager em;
+    CategoryRepository brcg ;
+    ProviderRepository brpv ;
 
-    CategoryRepository brcg = new CategoryRepositoryImpl(em);
-    ProviderRepository brpv = new ProviderRepositoryImpl(em);
-
-    public FormularioProvider() {
+    public FormularioProvider(EntityManager em) {
         initComponents();
-
+        this.em = em;
+        brcg = new CategoryRepositoryImpl(em);
+        brpv = new ProviderRepositoryImpl(em);
         poblarTabla();
     }
 
@@ -275,7 +276,6 @@ public class FormularioProvider extends javax.swing.JFrame {
             pv.setPhone(campoPhone.getText());
             pv.setWebsite(campoWebsite.getText());
 
-
             brpv.edit(pv);
 
         }
@@ -286,7 +286,6 @@ public class FormularioProvider extends javax.swing.JFrame {
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         if (!campoId.getText().equals("")) {
 
-          
             Provider pv = new Provider();
             pv.setName(campoName.getText());
             pv.setId(Integer.parseInt(campoId.getText()));
@@ -328,8 +327,6 @@ public class FormularioProvider extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonCerrarActionPerformed
 
-    static EntityManager em;
-
     public void poblarTabla() {
         DefaultTableModel tm = (DefaultTableModel) tablaProviders.getModel();
         int rowCount = tm.getRowCount();
@@ -339,9 +336,8 @@ public class FormularioProvider extends javax.swing.JFrame {
 
         }
 
-      
         proveedores = brpv.getAll();
-        DefaultTableModel tableModel ;
+        DefaultTableModel tableModel;
 
         for (Provider proveedor : proveedores) {
             tableModel = (DefaultTableModel) tablaProviders.getModel();

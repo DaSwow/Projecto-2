@@ -11,21 +11,20 @@ import java.util.ArrayList;
  *
  * @author carls
  */
-public interface Repository <T>{
-    
-       T find(int id);
+public interface Repository<T> {
 
-     void save(T entity);
+    T find(int id);
 
-     void delete(T entity);
+    void save(T entity);
 
-     void commit();
+    void delete(T entity);
 
-     void edit(T entity);
-     
-     void ensureTransaction();
-    
-      ArrayList<T> getAll(Class<T> entityClass);
-    
-    
+    void commit();
+
+    void edit(T entity);
+
+    void ensureTransaction();
+
+    ArrayList<T> getAll();
+
 }

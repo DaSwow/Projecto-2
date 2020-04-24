@@ -14,10 +14,10 @@ import persistence.ProductRepository;
  *
  * @author carls
  */
-public class ProductRepositoryImpl  extends BaseRepository<Product> implements ProductRepository {
+public class ProductRepositoryImpl  extends BaseRepository<Product> implements ProductRepository<Product> {
 
     public ProductRepositoryImpl(EntityManager em) {
-        super( Product.class);
+        super( Product.class,em);
     }
      
     @Override
@@ -51,7 +51,7 @@ public class ProductRepositoryImpl  extends BaseRepository<Product> implements P
 
     @Override
     public ArrayList getAll() {
-       return super.getAll(Product.class);
+       return super.getAll();
     }
     
     

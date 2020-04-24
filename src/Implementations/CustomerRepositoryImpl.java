@@ -7,11 +7,11 @@ import javax.persistence.EntityManager;
 import persistence.CustomerRepository;
 
 
-public class CustomerRepositoryImpl extends BaseRepository<Customer> implements CustomerRepository  {
+public class CustomerRepositoryImpl extends BaseRepository<Customer> implements CustomerRepository<Customer>  {
 
     
-    public CustomerRepositoryImpl(EntityManager entityManager) {
-        super(Customer.class);
+    public CustomerRepositoryImpl(EntityManager em) {
+        super(Customer.class,em);
     }
     
      
@@ -49,9 +49,10 @@ public class CustomerRepositoryImpl extends BaseRepository<Customer> implements 
     super.ensureTransaction();
     }
 
+    
     @Override
-    public ArrayList getAll() {
-        return super.getAll(Customer.class);
+    public ArrayList<Customer> getAll() {
+        return super.getAll();
     }
     
     

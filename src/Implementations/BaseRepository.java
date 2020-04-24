@@ -3,30 +3,29 @@ package Implementations;
 import entities.BaseEntity;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import persistence.Repository;
 
 public abstract class BaseRepository <T extends BaseEntity> implements Repository<T> {
 
-    private final EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("Projecto2PU");
-    private EntityManager entityManager = managerFactory.createEntityManager();
-    private Class<T> cls;
 
-    public BaseRepository(Class cls) {
+      EntityManager em ;
+      Class cls;
+
+    public BaseRepository(Class cls, EntityManager em) {
+        this.em=em;
         this.cls = cls;
     }
 
 
     @Override
-    public ArrayList<T> getAll(Class<T> entityClass) {
-        ensureTransaction();
-        Query query = entityManager.createQuery("from " + entityClass.getName() + " c");
+    public ArrayList<T> getAll() {
+      
+        Query query = em.createQuery("from " + cls.getName()  + " c");
 
         ArrayList lista = new ArrayList(query.getResultList());
-        entityManager.close();
+       
         return lista;
     }
 
@@ -34,8 +33,8 @@ public abstract class BaseRepository <T extends BaseEntity> implements Repositor
     @Override
     public T find(int id) {
         ensureTransaction();
-        T t = (T) entityManager.find(cls, id);
-        entityManager.close();
+        T t = (T) em.find(cls, id);
+       
         return t;
     }
 
@@ -44,14 +43,14 @@ public abstract class BaseRepository <T extends BaseEntity> implements Repositor
     public void save(T entity) {
         ensureTransaction();
         if (entity.getId() == null) {
-            this.entityManager.persist(entity);
-            entityManager.getTransaction().commit();
-            entityManager.close();
+            this.em.persist(entity);
+            em.getTransaction().commit();
+         
 
         } else {
-            entityManager.getTransaction().commit();
-            this.entityManager.merge(entity);
-            entityManager.close();
+            em.getTransaction().commit();
+            this.em.merge(entity);
+            
 
         }
 
@@ -61,9 +60,9 @@ public abstract class BaseRepository <T extends BaseEntity> implements Repositor
     @Override
     public void edit(T entity) {
         ensureTransaction();
-        entityManager.merge(entity);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        em.merge(entity);
+        em.getTransaction().commit();
+    ;
     }
 
 
@@ -71,10 +70,10 @@ public abstract class BaseRepository <T extends BaseEntity> implements Repositor
     public void delete(T entity) {
         ensureTransaction();
 
-        entityManager.remove(entityManager.merge(entity));
+        em.remove(em.merge(entity));
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        em.getTransaction().commit();
+  
 
     }
 
@@ -82,10 +81,10 @@ public abstract class BaseRepository <T extends BaseEntity> implements Repositor
     @Override
     public void commit() {
         ensureTransaction();
-        EntityTransaction transaction = this.entityManager.getTransaction();
+        EntityTransaction transaction = this.em.getTransaction();
         if (transaction.isActive()) {
-            entityManager.getTransaction().commit();
-            entityManager.close();
+            em.getTransaction().commit();
+        
         }
 
     }
@@ -93,24 +92,18 @@ public abstract class BaseRepository <T extends BaseEntity> implements Repositor
   
     @Override
     public void ensureTransaction() {
-        if (!entityManager.isOpen()) {
-            this.entityManager = managerFactory.createEntityManager();
-        }
+     
 
-        if (!entityManager.getTransaction().isActive()) {
-            entityManager.getTransaction().begin();
+        if (!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
         }
-        EntityTransaction transaction = this.entityManager.getTransaction();
+        EntityTransaction transaction = this.em.getTransaction();
         if (!transaction.isActive()) {
             transaction.begin();
         }
 
     }
 
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
 
-    
 
 }

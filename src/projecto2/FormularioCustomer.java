@@ -20,11 +20,12 @@ public class FormularioCustomer extends javax.swing.JFrame {
 
     ArrayList<Customer> customers = new ArrayList();
     static EntityManager em;
-    CustomerRepository br = new CustomerRepositoryImpl(em);
-    
-    public FormularioCustomer() {
-        initComponents();
+    CustomerRepository br ;
 
+    public FormularioCustomer(EntityManager em) {
+        initComponents();
+        this.em = em;
+        br = new CustomerRepositoryImpl(em);
         poblarTabla();
     }
 
@@ -247,7 +248,6 @@ public class FormularioCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
-     
 
         Customer cm = new Customer();
         cm.setAddress(campoAddress.getText());
@@ -269,7 +269,6 @@ public class FormularioCustomer extends javax.swing.JFrame {
             cm.setPhone(campoPhone.getText());
             cm.setRfc(campoRFC.getText());
 
-           
             br.edit(cm);
 
         }
@@ -280,7 +279,6 @@ public class FormularioCustomer extends javax.swing.JFrame {
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         if (!campoID.getText().equals("")) {
 
-           
             Customer cm = new Customer();
             cm.setName(campoName.getText());
             cm.setId(Integer.parseInt(campoID.getText()));
@@ -330,9 +328,8 @@ public class FormularioCustomer extends javax.swing.JFrame {
 
         }
 
-      
         customers = br.getAll();
-        DefaultTableModel tableModel ;
+        DefaultTableModel tableModel;
 
         for (Customer customer : customers) {
             tableModel = (DefaultTableModel) tablaCustomers.getModel();

@@ -14,10 +14,10 @@ import persistence.ProviderRepository;
  *
  * @author carls
  */
-public class ProviderRepositoryImpl extends BaseRepository<Provider> implements ProviderRepository {
+public class ProviderRepositoryImpl extends BaseRepository<Provider> implements ProviderRepository<Provider> {
 
-    public ProviderRepositoryImpl(EntityManager entityManager) {
-        super( Provider.class);
+    public ProviderRepositoryImpl(EntityManager em) {
+        super( Provider.class,em);
     }
     
      
@@ -53,7 +53,7 @@ public class ProviderRepositoryImpl extends BaseRepository<Provider> implements 
    
     @Override
     public ArrayList getAll() {
-      return super.getAll(Provider.class);
+      return super.getAll();
     }
     
 }

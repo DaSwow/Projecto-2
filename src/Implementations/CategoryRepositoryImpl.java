@@ -6,7 +6,6 @@
 package Implementations;
 
 import entities.Category;
-import entities.Product;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import persistence.CategoryRepository;
@@ -15,10 +14,13 @@ import persistence.CategoryRepository;
  *
  * @author carls
  */
-public class CategoryRepositoryImpl  extends BaseRepository <Category> implements CategoryRepository {
+public class CategoryRepositoryImpl  extends BaseRepository <Category> implements CategoryRepository<Category> {
 
-    public CategoryRepositoryImpl(EntityManager entityManager) {
-        super(Category.class);
+    EntityManager em;
+    
+    public CategoryRepositoryImpl(EntityManager em) {
+        super(Category.class,em);
+        
     }
 
     @Override
@@ -53,7 +55,7 @@ public class CategoryRepositoryImpl  extends BaseRepository <Category> implement
 
     @Override
     public ArrayList getAll() {
-       return super.getAll(Category.class);
+       return super.getAll();
     }
 
 }
