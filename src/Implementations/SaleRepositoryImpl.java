@@ -1,6 +1,5 @@
 package Implementations;
 
-import Implementations.BaseRepositoryImpl;
 import entities.Sale;
 import entities.SaleItem;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import persistence.SaleRepository;
  * @param <T>
  * @param <BaseRepositoryImpl>
  */
-public class SaleRepositoryImpl<T> extends BaseRepositoryImpl implements SaleRepository {
+public class SaleRepositoryImpl extends BaseRepository implements SaleRepository {
 
   
 
@@ -23,11 +22,12 @@ public class SaleRepositoryImpl<T> extends BaseRepositoryImpl implements SaleRep
 
  
 
+    @Override
     public ArrayList<SaleItem> findAllItemSales(int id) {
 
         ArrayList<SaleItem> saleItems = new ArrayList();
 
-        BaseRepositoryImpl brsi = new SaleRepositoryImpl(this.getEntityManager());
+        BaseRepository brsi = new SaleRepositoryImpl(this.getEntityManager());
         ArrayList<SaleItem> saleItemsSinFiltrar = brsi.getAll(SaleItem.class);
 
         for (int i = 0; i < saleItemsSinFiltrar.size(); i++) {
@@ -37,5 +37,44 @@ public class SaleRepositoryImpl<T> extends BaseRepositoryImpl implements SaleRep
         }
         return saleItems;
     }
+    
+     
+    @Override
+    public Sale find(int id) {
+      return (Sale)super.find(id);
+    }
+
+
+    @Override
+    public void save(Sale entity) {
+        super.save(entity);
+    }
+
+  
+    @Override
+    public void delete(Sale entity) {
+       super.delete(entity);
+    }
+
+    
+    @Override
+    public void commit() {
+        super.commit();
+    }
+
+
+    @Override
+    public void edit(Sale entity) {
+        super.edit(entity);
+    }
+
+    @Override
+    public ArrayList getAll() {
+        return super.getAll(Sale.class);
+    }
+    
+    
+    
+    
 
 }

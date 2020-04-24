@@ -13,33 +13,40 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
-import javax.persistence.Transient;
 import javax.swing.table.DefaultTableModel;
-import Implementations.BaseRepositoryImpl;
 import Implementations.CustomerRepositoryImpl;
 import Implementations.ProductRepositoryImpl;
 import Implementations.SaleItemRepositoryImpl;
 import Implementations.SaleRepositoryImpl;
+import persistence.CustomerRepository;
+import persistence.ProductRepository;
+import persistence.SaleItemRepository;
+import persistence.SaleRepository;
 
 /**
  *
  * @author carls
  */
 public class FormularioRealizarVenta extends javax.swing.JFrame {
-    
+
     ArrayList<Sale> sales = new ArrayList();
-    
+
     public FormularioRealizarVenta() {
         initComponents();
-    
-    
+
     }
-    
-    @Transient
+
+  
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    
+    
+        CustomerRepository brcm = new CustomerRepositoryImpl(em);
+        SaleRepository brsl = new SaleRepositoryImpl(em);
+        ProductRepository brpd = new ProductRepositoryImpl(em);
+        SaleItemRepository brsi = new SaleItemRepositoryImpl(em);
+        
     static EntityManager em;
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -241,43 +248,39 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
 
     private void botonRealizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRealizarVentaActionPerformed
 
-        if(tablaSaleItems.getRowCount()==0){
-        return;
+        if (tablaSaleItems.getRowCount() == 0) {
+            return;
         }
-        
+
         Sale sale = new Sale();
         Customer cm;
-        
-        BaseRepositoryImpl brcm = new CustomerRepositoryImpl(em);
-        BaseRepositoryImpl brsl = new SaleRepositoryImpl(em);
-        BaseRepositoryImpl brpd = new ProductRepositoryImpl(em);
-        BaseRepositoryImpl brsi = new SaleItemRepositoryImpl(em);
-        
+
+
         cm = (Customer) brcm.find(Integer.parseInt(campoCustomerID.getText()));
         if (cm == null) {
             return;
         }
         sale.setCustomer(cm);
         sale.setCustomerId(cm.getId());
-        
+
         try {
             sale.setDate(sdf.parse(campoDate.getText()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         sale.setDiscount(Float.parseFloat(campoDiscount.getText()));
-        
+
         float total = 0;
         for (int i = 0; i < tablaSaleItems.getRowCount(); i++) {
             total = total + (float) tablaSaleItems.getValueAt(i, 3);
-            
+
         }
         total = total - (total * Float.parseFloat(campoDiscount.getText()));
         sale.setTotal(total);
-        
+
         brsl.save(sale);
         sale = (Sale) brsl.find(sale.getId());
-        
+
         for (int i = 0; i < tablaSaleItems.getRowCount(); i++) {
             SaleItem si = new SaleItem();
             si.setProduct((Product) brpd.find((int) tablaSaleItems.getValueAt(i, 0)));
@@ -289,32 +292,30 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
             si.setSaleId(si.getSale().getId());
             brsi.save(si);
         }
-        
+
 
     }//GEN-LAST:event_botonRealizarVentaActionPerformed
 
     private void botonAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarProductoActionPerformed
 
-
-        BaseRepositoryImpl brpd = new ProductRepositoryImpl(em);
+       
         Product product = (Product) brpd.find(Integer.parseInt(campoProductID.getText()));
         if (product == null) {
             return;
         }
         int cantidad = Integer.parseInt(campoQuantity.getText());
-        
-        DefaultTableModel tableModel = new DefaultTableModel();
-        
+
+        DefaultTableModel tableModel ;
+
         tableModel = (DefaultTableModel) tablaSaleItems.getModel();
         Object[] objs = {product.getId(), product.getPrice(), cantidad, cantidad * product.getPrice()};
-        
+
         tableModel.addRow(objs);
-        float total=0;
+        float total = 0;
         for (int i = 0; i < tablaSaleItems.getRowCount(); i++) {
-            total=total+(float)tablaSaleItems.getValueAt(i, 3);
+            total = total + (float) tablaSaleItems.getValueAt(i, 3);
         }
-        
-        
+
 
     }//GEN-LAST:event_botonAgregarProductoActionPerformed
 
@@ -322,8 +323,7 @@ public class FormularioRealizarVenta extends javax.swing.JFrame {
         this.dispose();
 
     }//GEN-LAST:event_jButton1ActionPerformed
-    
- 
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarProducto;

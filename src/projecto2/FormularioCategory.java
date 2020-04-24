@@ -1,18 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projecto2;
 
 import entities.Category;
 import java.util.ArrayList;
-import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import Implementations.BaseRepositoryImpl;
 import Implementations.CategoryRepositoryImpl;
-import persistence.Repository;
-import Implementations.SaleRepositoryImpl;
+import javax.persistence.EntityManager;
+import persistence.CategoryRepository;
 
 /**
  *
@@ -21,17 +14,16 @@ import Implementations.SaleRepositoryImpl;
 public class FormularioCategory extends javax.swing.JFrame {
 
     ArrayList<Category> categorias = new ArrayList();
+    CategoryRepository br = new CategoryRepositoryImpl(em);
+    static EntityManager em;
 
-    public FormularioCategory() {
+    public FormularioCategory( ) {
         initComponents();
-
- 
-
-     
+       
         poblarTabla();
     }
 
-    @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -223,9 +215,6 @@ public class FormularioCategory extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
-
-        BaseRepositoryImpl br = new CategoryRepositoryImpl(em);
-
         Category ca = new Category();
         ca.setDescription(campoDescription.getText());
         ca.setName(campoName.getText());
@@ -240,7 +229,7 @@ public class FormularioCategory extends javax.swing.JFrame {
             ca.setName(campoName.getText());
             ca.setDescription(campoDescription.getText());
             ca.setId(Integer.parseInt(campoId.getText()));
-            BaseRepositoryImpl br = new CategoryRepositoryImpl(em);
+
             br.edit(ca);
 
         }
@@ -251,7 +240,6 @@ public class FormularioCategory extends javax.swing.JFrame {
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         if (!campoId.getText().equals("")) {
 
-            BaseRepositoryImpl br = new CategoryRepositoryImpl(em);
             Category ca = new Category();
             ca.setName(campoName.getText());
             ca.setDescription(campoDescription.getText());
@@ -284,16 +272,13 @@ public class FormularioCategory extends javax.swing.JFrame {
             if (tablaCategory.getValueAt(tablaCategory.getSelectedRow(), 2) != null) {
                 campoDescription.setText(tablaCategory.getValueAt(tablaCategory.getSelectedRow(), 2).toString());
             }
-          
+
         }
     }//GEN-LAST:event_botonModificarActionPerformed
 
     private void botonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_botonCerrarActionPerformed
-
-    static EntityManager em;
-
 
     public void poblarTabla() {
         DefaultTableModel tm = (DefaultTableModel) tablaCategory.getModel();
@@ -304,9 +289,8 @@ public class FormularioCategory extends javax.swing.JFrame {
 
         }
 
-        BaseRepositoryImpl br = new CategoryRepositoryImpl(em);
-        categorias = br.getAll(Category.class);
-        DefaultTableModel tableModel = new DefaultTableModel();
+        categorias = br.getAll();
+        DefaultTableModel tableModel;
 
         for (Category categoria : categorias) {
             tableModel = (DefaultTableModel) tablaCategory.getModel();

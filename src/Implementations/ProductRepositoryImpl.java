@@ -6,6 +6,7 @@
 package Implementations;
 
 import entities.Product;
+import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import persistence.ProductRepository;
 
@@ -13,11 +14,46 @@ import persistence.ProductRepository;
  *
  * @author carls
  */
-public class ProductRepositoryImpl<T> extends BaseRepositoryImpl implements ProductRepository {
+public class ProductRepositoryImpl <T> extends BaseRepository implements ProductRepository {
 
     public ProductRepositoryImpl(EntityManager em) {
         super( Product.class);
-
+    }
+     
+    @Override
+    public Product find(int id) {
+      return (Product)super.find(id);
     }
 
+
+    @Override
+    public void save(Product entity) {
+        super.save(entity);
+    }
+
+  
+    @Override
+    public void delete(Product entity) {
+       super.delete(entity);
+    }
+
+    
+    @Override
+    public void commit() {
+        super.commit();
+    }
+
+
+    @Override
+    public void edit(Product entity) {
+        super.edit(entity);
+    }
+
+    @Override
+    public ArrayList getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    
 }

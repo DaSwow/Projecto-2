@@ -6,6 +6,7 @@
 package Implementations;
 
 import entities.SaleItem;
+import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import persistence.SaleItemRepository;
 
@@ -13,11 +14,41 @@ import persistence.SaleItemRepository;
  *
  * @author carls
  */
-public class SaleItemRepositoryImpl <T> extends BaseRepositoryImpl implements SaleItemRepository{
-    
-       public SaleItemRepositoryImpl(EntityManager em) {
-        super( SaleItem.class);
+public class SaleItemRepositoryImpl<T> extends BaseRepository implements SaleItemRepository {
+
+    public SaleItemRepositoryImpl(EntityManager em) {
+        super(SaleItem.class);
 
     }
-    
+
+    @Override
+    public SaleItem find(int id) {
+        return (SaleItem) super.find(id);
+    }
+
+    @Override
+    public void save(SaleItem entity) {
+        super.save(entity);
+    }
+
+    @Override
+    public void delete(SaleItem entity) {
+        super.delete(entity);
+    }
+
+    @Override
+    public void commit() {
+        super.commit();
+    }
+
+    @Override
+    public void edit(SaleItem entity) {
+        super.edit(entity);
+    }
+
+    @Override
+    public ArrayList getAll() {
+        return super.getAll(SaleItem.class);
+    }
+
 }

@@ -5,20 +5,27 @@
  */
 package persistence;
 
-import entities.BaseEntity;
+import java.util.ArrayList;
 
 /**
  *
  * @author carls
  */
-public interface Repository <T extends BaseEntity> {
+public interface Repository <T>{
+    
+       T find(int id);
 
-    T find(int id);
+     void save(T entity);
 
-    T save(T entity);
+     void delete(T entity);
 
-    void delete(T entity);
+     void commit();
 
-    void commit();
-
+     void edit(T entity);
+     
+     void ensureTransaction();
+    
+      ArrayList<T> getAll(Class<T> entityClass);
+    
+    
 }

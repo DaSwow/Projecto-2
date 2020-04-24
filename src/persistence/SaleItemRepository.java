@@ -5,10 +5,28 @@
  */
 package persistence;
 
+import entities.BaseEntity;
+import entities.SaleItem;
+import java.util.ArrayList;
+
 /**
  *
  * @author carls
+ * @param <T>
  */
-public interface SaleItemRepository <T extends Repository>{
-    
+public interface SaleItemRepository<T extends BaseEntity > {
+
+     SaleItem find(int id);
+
+     void save(SaleItem entity);
+
+     void delete(SaleItem entity);
+
+     void commit();
+
+     void edit(SaleItem entity);
+
+     void ensureTransaction();
+     
+     ArrayList<SaleItem> getAll();
 }

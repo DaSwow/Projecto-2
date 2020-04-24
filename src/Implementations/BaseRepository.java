@@ -8,20 +8,19 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import persistence.Repository;
-import projecto2.Principal;
 
-public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Repository<T> {
+public abstract class BaseRepository <T extends BaseEntity> implements Repository<T> {
 
     private final EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("Projecto2PU");
     private EntityManager entityManager = managerFactory.createEntityManager();
     private Class<T> cls;
 
-    public BaseRepositoryImpl(Class cls) {
-
+    public BaseRepository(Class cls) {
         this.cls = cls;
-
     }
 
+
+    @Override
     public ArrayList<T> getAll(Class<T> entityClass) {
         ensureTransaction();
         Query query = entityManager.createQuery("from " + entityClass.getName() + " c");
@@ -31,6 +30,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Reposi
         return lista;
     }
 
+    
     @Override
     public T find(int id) {
         ensureTransaction();
@@ -39,29 +39,33 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Reposi
         return t;
     }
 
+    
     @Override
-    public T save(T entity) {
+    public void save(T entity) {
         ensureTransaction();
         if (entity.getId() == null) {
             this.entityManager.persist(entity);
             entityManager.getTransaction().commit();
             entityManager.close();
-            return entity;
+
         } else {
             entityManager.getTransaction().commit();
-            T t = this.entityManager.merge(entity);
+            this.entityManager.merge(entity);
             entityManager.close();
-            return t;
+
         }
 
     }
 
+
+    @Override
     public void edit(T entity) {
         ensureTransaction();
         entityManager.merge(entity);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
 
     @Override
     public void delete(T entity) {
@@ -74,6 +78,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Reposi
 
     }
 
+ 
     @Override
     public void commit() {
         ensureTransaction();
@@ -85,7 +90,9 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Reposi
 
     }
 
-    protected void ensureTransaction() {
+  
+    @Override
+    public void ensureTransaction() {
         if (!entityManager.isOpen()) {
             this.entityManager = managerFactory.createEntityManager();
         }
@@ -104,12 +111,6 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements Reposi
         return entityManager;
     }
 
-    public void setEntityManager(EntityManager em) {
-        this.entityManager = em;
-    }
-
-    public Class<T> getCls() {
-        return cls;
-    }
+    
 
 }

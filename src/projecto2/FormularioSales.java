@@ -9,15 +9,17 @@ import entities.Sale;
 import entities.SaleItem;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import Implementations.BaseRepositoryImpl;
 import Implementations.SaleRepositoryImpl;
+import persistence.SaleRepository;
 import static projecto2.FormularioProvider.em;
 
 public class FormularioSales extends javax.swing.JFrame {
 
     private ArrayList<Sale> sales;
     private ArrayList<SaleItem> saleItems;
-
+ 
+    private SaleRepository br = new SaleRepositoryImpl(em);
+    
     public FormularioSales() {
         initComponents();
   
@@ -181,7 +183,7 @@ public class FormularioSales extends javax.swing.JFrame {
 
         }
 
-        SaleRepositoryImpl br = new SaleRepositoryImpl(em);
+ 
 
         saleItems = br.findAllItemSales((Integer) tablaSales.getValueAt(tablaSales.getSelectedRow(), 0));
 
@@ -201,11 +203,11 @@ public class FormularioSales extends javax.swing.JFrame {
 
     public void poblarTabla() {
 
-        BaseRepositoryImpl br = new SaleRepositoryImpl(em);
+        
 
-        sales = br.getAll(Sale.class);
+        sales = br.getAll();
 
-        DefaultTableModel tableModel = new DefaultTableModel();
+        DefaultTableModel tableModel;
 
         for (Sale sale : sales) {
             tableModel = (DefaultTableModel) tablaSales.getModel();

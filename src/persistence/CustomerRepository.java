@@ -5,10 +5,29 @@
  */
 package persistence;
 
+import entities.BaseEntity;
+import entities.Customer;
+import java.util.ArrayList;
+
 /**
  *
  * @author carls
+ * @param <T>
  */
-public interface CustomerRepository <T extends Repository>{
+public interface CustomerRepository<T extends BaseEntity> {
+
+    Customer find(int id);
+
+    void save(Customer entity);
+
+    void delete(Customer entity);
+
+    void commit();
+
+    void edit(Customer entity);
+
+    void ensureTransaction();
     
+       ArrayList<T> getAll();
+
 }

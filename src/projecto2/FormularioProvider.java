@@ -9,8 +9,11 @@ import entities.Provider;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import Implementations.BaseRepositoryImpl;
+import Implementations.BaseRepository;
+import Implementations.CategoryRepositoryImpl;
 import Implementations.ProviderRepositoryImpl;
+import persistence.CategoryRepository;
+import persistence.ProviderRepository;
 
 /**
  *
@@ -20,15 +23,15 @@ public class FormularioProvider extends javax.swing.JFrame {
 
     ArrayList<Provider> proveedores = new ArrayList();
 
+    CategoryRepository brcg = new CategoryRepositoryImpl(em);
+    ProviderRepository brpv = new ProviderRepositoryImpl(em);
+
     public FormularioProvider() {
         initComponents();
-     
-        
-    
+
         poblarTabla();
     }
 
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -252,15 +255,13 @@ public class FormularioProvider extends javax.swing.JFrame {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
 
-        BaseRepositoryImpl br = new ProviderRepositoryImpl(em);
-
         Provider pv = new Provider();
         pv.setAddress(campoAddress.getText());
         pv.setName(campoName.getText());
         pv.setPhone(campoPhone.getText());
         pv.setWebsite(campoWebsite.getText());
 
-        br.save(pv);
+        brpv.save(pv);
 
         poblarTabla();
     }//GEN-LAST:event_botonAgregarActionPerformed
@@ -274,8 +275,8 @@ public class FormularioProvider extends javax.swing.JFrame {
             pv.setPhone(campoPhone.getText());
             pv.setWebsite(campoWebsite.getText());
 
-            BaseRepositoryImpl br = new ProviderRepositoryImpl(em);
-            br.edit(pv);
+
+            brpv.edit(pv);
 
         }
 
@@ -285,14 +286,14 @@ public class FormularioProvider extends javax.swing.JFrame {
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         if (!campoId.getText().equals("")) {
 
-            BaseRepositoryImpl br = new ProviderRepositoryImpl(em);
+          
             Provider pv = new Provider();
             pv.setName(campoName.getText());
             pv.setId(Integer.parseInt(campoId.getText()));
             pv.setAddress(campoAddress.getText());
             pv.setPhone(campoPhone.getText());
             pv.setWebsite(campoWebsite.getText());
-            br.delete(pv);
+            brpv.delete(pv);
             campoAddress.setText("");
             campoId.setText("");
             campoName.setText("");
@@ -305,25 +306,29 @@ public class FormularioProvider extends javax.swing.JFrame {
 
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
         if (tablaProviders.getSelectedRow() != (-1)) {
-             if (tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 0) != null)
-            campoId.setText(tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 0).toString());
-             if (tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 1) != null)
-            campoName.setText(tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 1).toString());
-             if (tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 2) != null)
-            campoAddress.setText(tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 2).toString());
-             if (tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 3) != null)
-            campoPhone.setText(tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 3).toString());
-            if (tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 4) != null)
-            campoWebsite.setText(tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 4).toString());
+            if (tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 0) != null) {
+                campoId.setText(tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 0).toString());
+            }
+            if (tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 1) != null) {
+                campoName.setText(tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 1).toString());
+            }
+            if (tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 2) != null) {
+                campoAddress.setText(tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 2).toString());
+            }
+            if (tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 3) != null) {
+                campoPhone.setText(tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 3).toString());
+            }
+            if (tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 4) != null) {
+                campoWebsite.setText(tablaProviders.getValueAt(tablaProviders.getSelectedRow(), 4).toString());
+            }
         }
     }//GEN-LAST:event_botonModificarActionPerformed
 
     private void botonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarActionPerformed
-       this.dispose();   
+        this.dispose();
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     static EntityManager em;
-   
 
     public void poblarTabla() {
         DefaultTableModel tm = (DefaultTableModel) tablaProviders.getModel();
@@ -334,9 +339,9 @@ public class FormularioProvider extends javax.swing.JFrame {
 
         }
 
-        BaseRepositoryImpl br = new ProviderRepositoryImpl(em);
-        proveedores = br.getAll(Provider.class);
-        DefaultTableModel tableModel = new DefaultTableModel();
+      
+        proveedores = brpv.getAll();
+        DefaultTableModel tableModel ;
 
         for (Provider proveedor : proveedores) {
             tableModel = (DefaultTableModel) tablaProviders.getModel();

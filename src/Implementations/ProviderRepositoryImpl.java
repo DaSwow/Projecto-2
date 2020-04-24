@@ -6,6 +6,7 @@
 package Implementations;
 
 import entities.Provider;
+import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import persistence.ProviderRepository;
 
@@ -13,11 +14,46 @@ import persistence.ProviderRepository;
  *
  * @author carls
  */
-public class ProviderRepositoryImpl <T> extends BaseRepositoryImpl implements ProviderRepository {
+public class ProviderRepositoryImpl <T> extends BaseRepository implements ProviderRepository {
 
     public ProviderRepositoryImpl(EntityManager entityManager) {
         super( Provider.class);
     }
     
+     
+    @Override
+    public Provider find(int id) {
+      return (Provider)super.find(id);
+    }
+
+
+    @Override
+    public void save(Provider entity) {
+        super.save(entity);
+    }
+
+  
+    @Override
+    public void delete(Provider entity) {
+       super.delete(entity);
+    }
+
+    
+    @Override
+    public void commit() {
+        super.commit();
+    }
+
+
+    @Override
+    public void edit(Provider entity) {
+        super.edit(entity);
+    }
+
+   
+    @Override
+    public ArrayList getAll() {
+      return super.getAll(Provider.class);
+    }
     
 }

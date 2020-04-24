@@ -11,10 +11,12 @@ import entities.Provider;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import Implementations.BaseRepositoryImpl;
 import Implementations.CategoryRepositoryImpl;
 import Implementations.ProductRepositoryImpl;
 import Implementations.ProviderRepositoryImpl;
+import persistence.CategoryRepository;
+import persistence.ProductRepository;
+import persistence.ProviderRepository;
 
 /**
  *
@@ -24,10 +26,12 @@ public class FormularioProduct extends javax.swing.JFrame {
 
     ArrayList<Product> products = new ArrayList();
 
+    ProductRepository brpd = new ProductRepositoryImpl(em);
+    CategoryRepository brcg = new CategoryRepositoryImpl(em);
+    ProviderRepository brpv = new ProviderRepositoryImpl(em);
+
     public FormularioProduct() {
         initComponents();
-       
-        
 
         poblarTabla();
     }
@@ -249,21 +253,17 @@ public class FormularioProduct extends javax.swing.JFrame {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
 
-        BaseRepositoryImpl brpd = new ProductRepositoryImpl(em);
-        BaseRepositoryImpl brcg = new CategoryRepositoryImpl(em);
-        BaseRepositoryImpl brpv = new ProviderRepositoryImpl(em);
-
         Product pd = new Product();
         try {
-            if(campoCategoryID.getText().equals("")){
-            return;
+            if (campoCategoryID.getText().equals("")) {
+                return;
             }
             pd.setCategory((Category) brcg.find(Integer.parseInt(campoCategoryID.getText())));
             if (pd.getCategory() != null) {
                 pd.setCategoryId(pd.getCategory().getId());
             }
-            if(campoProviderID.getText().equals("")){
-            return;
+            if (campoProviderID.getText().equals("")) {
+                return;
             }
             pd.setProvider((Provider) brpv.find(Integer.parseInt(campoProviderID.getText())));
             if (pd.getProvider() != null) {
@@ -287,9 +287,6 @@ public class FormularioProduct extends javax.swing.JFrame {
 
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
         if (!campoID.getText().equals("")) {
-            BaseRepositoryImpl brpd = new ProductRepositoryImpl(em);
-            BaseRepositoryImpl brcg = new CategoryRepositoryImpl(em);
-            BaseRepositoryImpl brpv = new ProviderRepositoryImpl(em);
 
             Product pd = new Product();
             pd.setName(campoNombre.getText());
@@ -301,7 +298,7 @@ public class FormularioProduct extends javax.swing.JFrame {
                 if (pd.getCategory() != null) {
                     pd.setCategoryId(pd.getCategory().getId());
                 }
-                
+
                 pd.setProvider((Provider) brpv.find(Integer.parseInt(campoProviderID.getText())));
                 if (pd.getProvider() != null) {
                     pd.setProviderId(pd.getProvider().getId());
@@ -324,9 +321,7 @@ public class FormularioProduct extends javax.swing.JFrame {
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         if (!campoID.getText().equals("")) {
-            BaseRepositoryImpl brpd = new ProductRepositoryImpl(em);
-            BaseRepositoryImpl brcg = new CategoryRepositoryImpl(em);
-            BaseRepositoryImpl brpv = new ProviderRepositoryImpl(em);
+    
 
             Product pd = new Product();
             pd.setName(campoNombre.getText());
@@ -338,22 +333,19 @@ public class FormularioProduct extends javax.swing.JFrame {
                 if (pd.getCategory() != null) {
                     pd.setCategoryId(pd.getCategory().getId());
                 }
-            
-               
+
                 pd.setProvider((Provider) brpv.find(Integer.parseInt(campoProviderID.getText())));
                 if (pd.getProvider() != null) {
                     pd.setProviderId(pd.getProvider().getId());
                 }
-                     } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 return;
             }
-           
-                
-                if (pd.getCategory() == null || pd.getProvider() == null) {
-                    return;
-                }
 
-          
+            if (pd.getCategory() == null || pd.getProvider() == null) {
+                return;
+            }
+
             pd.setId(Integer.parseInt(campoID.getText()));
 
             brpd.delete(pd);
@@ -378,33 +370,33 @@ public class FormularioProduct extends javax.swing.JFrame {
         if (tablaProduct.getSelectedRow() != (-1)) {
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 0) != null) {
                 campoID.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 0).toString());
-            }else{
-            campoID.setText("");
+            } else {
+                campoID.setText("");
             }
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 1) != null) {
                 campoNombre.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 1).toString());
-            }else{
-            campoNombre.setText("");
+            } else {
+                campoNombre.setText("");
             }
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 2) != null) {
                 campoPrice.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 2).toString());
-            }else{
-            campoPrice.setText("");
+            } else {
+                campoPrice.setText("");
             }
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 3) != null) {
                 campoStock.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 3).toString());
-            }else{
-            campoStock.setText("");
+            } else {
+                campoStock.setText("");
             }
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 4) != null) {
                 campoProviderID.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 4).toString());
-            }else{
-            campoProviderID.setText("");
+            } else {
+                campoProviderID.setText("");
             }
             if (tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 5) != null) {
                 campoCategoryID.setText(tablaProduct.getValueAt(tablaProduct.getSelectedRow(), 5).toString());
-            }else{
-            campoCategoryID.setText("");
+            } else {
+                campoCategoryID.setText("");
             }
         }
     }//GEN-LAST:event_botonModificarActionPerformed
@@ -420,8 +412,8 @@ public class FormularioProduct extends javax.swing.JFrame {
 
         }
 
-        BaseRepositoryImpl br = new ProductRepositoryImpl(em);
-        products = br.getAll(Product.class);
+      
+        products = brpd.getAll();
         DefaultTableModel tableModel = new DefaultTableModel();
 
         for (Product producto : products) {
