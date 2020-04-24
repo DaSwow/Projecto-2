@@ -14,7 +14,7 @@ import persistence.ProductRepository;
  *
  * @author carls
  */
-public class ProductRepositoryImpl <T> extends BaseRepository implements ProductRepository {
+public class ProductRepositoryImpl  extends BaseRepository<Product> implements ProductRepository {
 
     public ProductRepositoryImpl(EntityManager em) {
         super( Product.class);

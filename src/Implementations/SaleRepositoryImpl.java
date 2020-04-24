@@ -9,10 +9,8 @@ import persistence.SaleRepository;
 /**
  *
  * @author carls
- * @param <T>
- * @param <BaseRepositoryImpl>
  */
-public class SaleRepositoryImpl extends BaseRepository implements SaleRepository {
+public class SaleRepositoryImpl extends BaseRepository<Sale> implements SaleRepository {
 
   
 

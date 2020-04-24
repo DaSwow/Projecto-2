@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import persistence.CustomerRepository;
 
 
-public class CustomerRepositoryImpl <T> extends BaseRepository implements CustomerRepository  {
+public class CustomerRepositoryImpl extends BaseRepository<Customer> implements CustomerRepository  {
 
     
     public CustomerRepositoryImpl(EntityManager entityManager) {

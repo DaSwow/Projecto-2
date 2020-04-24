@@ -6,6 +6,7 @@
 package Implementations;
 
 import entities.Category;
+import entities.Product;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import persistence.CategoryRepository;
@@ -14,7 +15,7 @@ import persistence.CategoryRepository;
  *
  * @author carls
  */
-public class CategoryRepositoryImpl <T> extends BaseRepository implements CategoryRepository {
+public class CategoryRepositoryImpl  extends BaseRepository <Category> implements CategoryRepository {
 
     public CategoryRepositoryImpl(EntityManager entityManager) {
         super(Category.class);
