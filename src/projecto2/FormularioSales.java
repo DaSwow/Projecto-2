@@ -17,12 +17,12 @@ public class FormularioSales extends javax.swing.JFrame {
 
     private ArrayList<Sale> sales;
     private ArrayList<SaleItem> saleItems;
- 
+
     private SaleRepository br = new SaleRepositoryImpl(em);
-    
+
     public FormularioSales() {
         initComponents();
-  
+
         poblarTabla();
     }
 
@@ -183,8 +183,6 @@ public class FormularioSales extends javax.swing.JFrame {
 
         }
 
- 
-
         saleItems = br.findAllItemSales((Integer) tablaSales.getValueAt(tablaSales.getSelectedRow(), 0));
 
         for (SaleItem saleItem : saleItems) {
@@ -202,8 +200,6 @@ public class FormularioSales extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     public void poblarTabla() {
-
-        
 
         sales = br.getAll();
 

@@ -9,7 +9,6 @@ import entities.Customer;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.table.DefaultTableModel;
-import Implementations.BaseRepository;
 import Implementations.CustomerRepositoryImpl;
 import persistence.CustomerRepository;
 
