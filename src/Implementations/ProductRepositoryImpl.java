@@ -51,7 +51,7 @@ public class ProductRepositoryImpl  extends BaseRepository<Product> implements P
 
     @Override
     public ArrayList getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return super.getAll(Product.class);
     }
     
     
