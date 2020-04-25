@@ -14,11 +14,12 @@ import persistence.SaleRepository;
 public class SaleRepositoryImpl extends BaseRepository<Sale> implements SaleRepository<Sale> {
 
      SaleItemRepository brsi;
-
+     EntityManager em;
+     
     public SaleRepositoryImpl(EntityManager em) {
        super(Sale.class,em);
         brsi = new SaleItemRepositoryImpl(em);
-       
+    
     }
 
  
@@ -72,8 +73,7 @@ public class SaleRepositoryImpl extends BaseRepository<Sale> implements SaleRepo
         return super.getAll();
     }
     
-    
-    
+
     
 
 }

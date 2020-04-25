@@ -4,6 +4,7 @@ import entities.BaseEntity;
 import entities.Sale;
 import entities.SaleItem;
 import java.util.ArrayList;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -35,6 +36,6 @@ public interface SaleRepository<T extends BaseEntity> extends Repository<Sale>{
     @Override
      public ArrayList<Sale> getAll();
      
-     
+
 
 }

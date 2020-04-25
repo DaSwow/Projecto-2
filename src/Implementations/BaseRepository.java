@@ -104,6 +104,4 @@ public abstract class BaseRepository <T extends BaseEntity> implements Repositor
 
     }
 
-
-
 }

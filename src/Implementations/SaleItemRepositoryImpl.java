@@ -16,9 +16,11 @@ import persistence.SaleItemRepository;
  */
 public class SaleItemRepositoryImpl extends BaseRepository<SaleItem> implements SaleItemRepository<SaleItem> {
 
+     EntityManager em;
+    
     public SaleItemRepositoryImpl(EntityManager em) {
-        super(SaleItem.class,em);
-
+        super(SaleItem.class, em);
+        this.em=em;
     }
 
     @Override
@@ -50,5 +52,7 @@ public class SaleItemRepositoryImpl extends BaseRepository<SaleItem> implements 
     public ArrayList getAll() {
         return super.getAll();
     }
+
+    
 
 }

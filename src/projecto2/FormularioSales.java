@@ -17,12 +17,12 @@ public class FormularioSales extends javax.swing.JFrame {
 
     private ArrayList<Sale> sales;
     private ArrayList<SaleItem> saleItems;
-    private static EntityManager em;
-    private SaleRepository br = new SaleRepositoryImpl(em);
+
+    private SaleRepository br ;
     
     public FormularioSales(EntityManager em) {
         initComponents();
-        this.em=em;
+        br= new SaleRepositoryImpl(em);
         poblarTabla();
     }
 

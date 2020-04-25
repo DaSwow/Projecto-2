@@ -8,6 +8,7 @@ package persistence;
 import entities.BaseEntity;
 import entities.SaleItem;
 import java.util.ArrayList;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -36,4 +37,6 @@ public interface SaleItemRepository<T extends BaseEntity > extends Repository<Sa
      
      @Override
      ArrayList<SaleItem> getAll();
+     
+
 }
